@@ -1,9 +1,10 @@
+import { useTags } from "hooks";
 import { useUser } from "hooks";
 import Head from "next/head";
+import { Dashboard } from "views/containers";
 
-const Home = () => {
+const Index = () => {
   const { user } = useUser({ redirectTo: "/auth/login" });
-
   if (!user || !user.isLoggedIn) {
     return <p>Loading...</p>;
   }
@@ -15,11 +16,9 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Welcome</h1>
-      </main>
+      <Dashboard />
     </div>
   );
 };
 
-export default Home;
+export default Index;
