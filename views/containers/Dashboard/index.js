@@ -6,11 +6,11 @@ const Dashboard = () => {
   const { selectedNote, setSelectedNote } = useState({});
 
   return (
-    <>
+    <div className="flex flex-row">
       <TagList selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
       <NoteList selectedTag={selectedTag} setSelectedNote={setSelectedNote} />
       <Editor selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
-    </>
+    </div>
   );
 };
 
