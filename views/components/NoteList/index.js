@@ -1,21 +1,29 @@
 import { useNotes } from "hooks";
 import Note from "../Note";
-import Tag from "../Tag";
+import Spinner from "../Spinner";
 
-const NoteList = () => {
-  const { notes, notesLoading } = useNotes();
+const NoteList = ({ selectedTag, setSelectedNote }) => {
+  const { notes, notesLoading } = useNotes({ tag: selectedTag });
 
-  if (notesLoading) {
-    return <p>Loading Notes...</p>;
-  }
+  const renderLoading = () => {
+    return <Spinner />;
+  };
 
-  return (
-    <div className="flex flex-column w-1/4">
+  const renderList = () => {
+    return (
       <ul className="w-full">
         {notes.map((note) => (
-          <Note key={note.id} note={note} />
+          <div onClick={() => setSelectedNote(note)}>
+            <Note key={note.id} note={note} />
+          </div>
         ))}
       </ul>
+    );
+  };
+
+  return (
+    <div className="flex flex-column h-full w-1/4 bg-[#3b4252] text-[#d8dee9]">
+      {notesLoading ? renderLoading() : renderList()}
     </div>
   );
 };
