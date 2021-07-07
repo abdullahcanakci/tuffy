@@ -11,7 +11,7 @@ const NoteList = ({ selectedTag, setSelectedNote }) => {
 
   const renderList = () => {
     return (
-      <ul className="w-full">
+      <ul className="w-full overflow-auto">
         {notes.map((note) => (
           <div onClick={() => setSelectedNote(note)}>
             <Note key={note.id} note={note} />

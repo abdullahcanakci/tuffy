@@ -12,13 +12,11 @@ const TagList = ({ selectedTag, setSelectedTag }) => {
 
   const renderList = () => {
     return (
-      <ul className="w-full">
+      <ul className="w-full pl-2">
         {tags.map((tag) => (
           <div
             key={tag.id}
-            className={classNames({
-              "bg-[#3b4252]": selectedTag?.id == tag.id,
-            })}
+            className=" "
             onClick={() => {
               setSelectedTag(tag);
             }}>
@@ -30,7 +28,7 @@ const TagList = ({ selectedTag, setSelectedTag }) => {
   };
 
   return (
-    <div className="flex flex-column w-24 bg-[#2e3440] text-[#d8dee9] shadow-md">
+    <div className="flex flex-column w-[200px] bg-[#1f1f1f] text-[#d8dee9] shadow-md">
       {tagsLoading ? renderLoading() : renderList()}
     </div>
   );

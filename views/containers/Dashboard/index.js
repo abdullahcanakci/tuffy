@@ -10,10 +10,10 @@ const Dashboard = () => {
   }, [selectedNote]);
 
   return (
-    <div className="flex flex-row h-screen">
+    <div className="flex flex-row h-screen overflow-hidden">
       <TagList selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
-      <NoteList selectedTag={selectedTag} setSelectedNote={setSelectedNote} />
-      <Editor selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
+      {/* <NoteList selectedTag={selectedTag} setSelectedNote={setSelectedNote} />
+      <Editor selectedNote={selectedNote} setSelectedNote={setSelectedNote} /> */}
     </div>
   );
 };

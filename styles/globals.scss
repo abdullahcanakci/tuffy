@@ -14,3 +14,7 @@
   border-right-color: transparent;
   animation: loader-rotate 1s linear infinite;
 }
+
+.milkdown {
+  @apply prose min-h-full;
+}
