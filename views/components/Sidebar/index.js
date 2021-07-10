@@ -16,7 +16,7 @@ const Sidebar = () => {
     { name: "Hightlights" },
   ];
 
-  const { tags, tagsLoading, createTag } = useTags();
+  const { tags, tagsLoading, createTag, deleteTag } = useTags();
 
   const onNewEntry = (value) => {
     createTag(value);
@@ -29,18 +29,24 @@ const Sidebar = () => {
           <SectionTitle title="Quick Links" />
           <ul>
             {quickLinks.map((link) => (
-              <QuickLink content={link} />
+              <QuickLink content={link} key={link.id} />
             ))}
           </ul>
         </Section>
         <Section>
-          <SectionTitle title="Quick Links" onNewEntry={onNewEntry} />
+          <SectionTitle title="Tags" onNewEntry={onNewEntry} />
           {tagsLoading ? (
             <Spinner />
           ) : (
             <ul>
               {tags.map((link) => (
-                <QuickLink content={link} />
+                <QuickLink
+                  content={link}
+                  key={link.id}
+                  actions={[
+                    { label: "Delete", onClick: () => deleteTag(link.id) },
+                  ]}
+                />
               ))}
             </ul>
           )}

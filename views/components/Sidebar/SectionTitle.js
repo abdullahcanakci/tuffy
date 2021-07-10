@@ -26,25 +26,36 @@ const SectionTitle = ({ title, icon, onNewEntry }) => {
         [`${styles.active}`]: edit,
       })}>
       {edit ? (
-        <input
-          type="text"
-          maxLength="16"
-          placeholder="Input"
-          autoFocus
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
+        <form onSubmit={() => confirmEntry}>
+          <div className="flex flex-row">
+            <input
+              type="text"
+              maxLength="16"
+              placeholder="Input"
+              autoFocus
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button
+              type="button"
+              className={styles.quicklink_icon}
+              onClick={showEdit}>
+              <X />
+            </button>
+            <button
+              type="submit"
+              className={styles.quicklink_icon}
+              onClick={confirmEntry}>
+              <Check />
+            </button>
+          </div>
+        </form>
       ) : (
         <span>{title}</span>
       )}
-      {onNewEntry && (
+      {onNewEntry && !edit && (
         <div className={styles.quicklink_icon} onClick={showEdit}>
-          {edit ? <X /> : <Plus />}
-        </div>
-      )}
-      {edit && (
-        <div className={styles.quicklink_icon} onClick={confirmEntry}>
-          <Check />
+          <Plus />
         </div>
       )}
     </div>

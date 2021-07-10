@@ -29,7 +29,7 @@
 }
 
 .section_title {
-  @apply flex flex-row w-full pb-1;
+  @apply mt-4 flex flex-row w-full pb-1;
 }
 
 .section_title span {
@@ -58,7 +58,7 @@
 }
 
 .quicklink {
-  @apply py-2 flex flex-row;
+  @apply py-[6px] flex flex-row;
 }
 .quicklink_icon {
   @apply w-6;

@@ -4,7 +4,7 @@ const { fetcher } = require("utils");
 
 const createTag = (name) => {
   const tag = {
-    id: ObjectID().toString(),
+    id: ObjectID(),
     name: name,
   };
   fetcher(`/api/tags/${tag.id}`, {
@@ -15,7 +15,15 @@ const createTag = (name) => {
   return tag;
 };
 
+const deleteTag = (id) => {
+  console.log(id);
+  fetcher(`/api/tags/${id}`, {
+    method: "DELETE",
+  });
+};
+
 const TagService = {};
 TagService.createTag = createTag;
+TagService.deleteTag = deleteTag;
 
 export default TagService;

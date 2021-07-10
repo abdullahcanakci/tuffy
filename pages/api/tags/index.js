@@ -19,7 +19,7 @@ handler.use(session).get(async (req, res) => {
     .find({}, { _id: 1, name: 1 })
     .toArray();
 
-  res.json(tags.map((t) => ({ id: t._id, name: t.name })));
+  res.json(tags.map((t) => ({ id: t._id.toString(), name: t.name })));
 });
 
 export default handler;

@@ -8,13 +8,21 @@ const useTags = ({ key = null } = {}) => {
     user?.isLoggedIn && "/api/tags"
   );
   const tagsLoading = tags === undefined;
-
+  console.log(tags);
   const createTag = (name) => {
     const tag = TagService.createTag(name);
     mutateTags([...tags, tag], false);
   };
 
-  return { tags, tagsLoading, createTag };
+  const deleteTag = (id) => {
+    TagService.deleteTag(id);
+    mutateTags(
+      tags.filter((tag) => tag.id != id),
+      false
+    );
+  };
+
+  return { tags, tagsLoading, createTag, deleteTag };
 };
 
 export default useTags;
