@@ -8,10 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@milkdown/core": "^4.3.0",
-    "@milkdown/preset-commonmark": "^4.3.0",
-    "@milkdown/react": "^4.3.1",
-    "@milkdown/theme-nord": "^4.3.0",
     "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.2.6",
     "bcrypt": "^5.0.1",

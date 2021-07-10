@@ -24,7 +24,12 @@
 }
 
 .section_title .quicklink_icon {
-  @apply mr-2 ml-0 cursor-pointer;
+  @apply ml-0 cursor-pointer;
+  color: #dddddd99;
+}
+
+.section_title .quicklink_icon:last-of-type {
+  @apply mr-2;
 }
 
 .section_title .quicklink_icon:hover {

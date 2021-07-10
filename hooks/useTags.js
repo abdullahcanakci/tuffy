@@ -1,6 +1,3 @@
-import Router from "next/router";
-import data from "pages/api/notes/data";
-import { useEffect } from "react";
 import { TagService } from "services";
 import useSWR from "swr";
 import useUser from "./useUser";

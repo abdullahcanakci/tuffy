@@ -1,7 +1,7 @@
-const Spinner = ({}) => {
+const Spinner = () => {
   return (
-    <div className="mx-auto">
-      <div class="w-12 h-12 border-2 border-[#d8dee9] rounded-full loader"></div>
+    <div className="flex justify-center">
+      <div className="w-[24px] h-[24px] m-2 border-[3px] border-green-400 rounded-full loader"></div>
     </div>
   );
 };
