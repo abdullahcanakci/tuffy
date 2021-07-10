@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "utils": ["src/utils/index"],
-      "hooks": ["src/hooks/index"]
+      "hooks": ["src/hooks/index"],
+      "services": ["src/services/index"]
     }
   }
 }

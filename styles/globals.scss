@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,200;1,800&display=swap");
+
 @keyframes loader-rotate {
   0% {
     transform: rotate(0);
@@ -17,4 +19,8 @@
 
 .milkdown {
   @apply prose min-h-full;
+}
+
+* {
+  font-family: "Nunito", sans-serif;
 }

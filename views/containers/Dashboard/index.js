@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { NoteList, TagList, Editor } from "views/components";
+import { NoteList, Editor } from "views/components";
+import Sidebar from "views/components/Sidebar";
 
 const Dashboard = () => {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -11,9 +12,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-row h-screen overflow-hidden">
-      <TagList selectedTag={selectedTag} setSelectedTag={setSelectedTag} />
-      {/* <NoteList selectedTag={selectedTag} setSelectedNote={setSelectedNote} />
-      <Editor selectedNote={selectedNote} setSelectedNote={setSelectedNote} /> */}
+      <Sidebar />
     </div>
   );
 };

@@ -1,0 +1,67 @@
+.sidebar {
+  @apply bg-[#1f1f1f] w-[220px] text-[#ddd];
+}
+
+.sidebar > nav {
+  @apply pt-6 pl-6;
+  list-style: none;
+}
+
+.section_title {
+  @apply flex flex-row w-full pb-1;
+}
+
+.section_title span {
+  @apply flex-1 mb-0;
+}
+
+.section_title input {
+  @apply bg-[#1f1f1f] text-[#dddddd99] outline-none box-border w-full;
+}
+
+.section_title.active {
+  @apply mb-0;
+}
+
+.section_title .quicklink_icon {
+  @apply mr-2 ml-0 cursor-pointer;
+}
+
+.section_title .quicklink_icon:hover {
+  @apply text-green-400;
+}
+
+.quicklink {
+  @apply py-2 flex flex-row;
+}
+.quicklink_icon {
+  @apply w-6;
+}
+
+.quicklink svg {
+  @apply block h-full p-1 m-auto;
+}
+
+.quicklink li {
+  @apply flex-1;
+}
+
+.quicklink:hover {
+  @apply text-green-400;
+}
+
+.quicklink + ul {
+  @apply pl-4;
+}
+
+.sidebar_group > h4 {
+  @apply pt-2 mt-6;
+}
+
+.sidebar_group li {
+  @apply mb-1 cursor-pointer;
+}
+
+.sidebar_group li:last-of-type {
+  @apply mb-0;
+}
