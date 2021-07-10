@@ -1,8 +1,11 @@
+import { usePortal } from "hooks";
+import { useRef } from "react";
 import { SWRConfig } from "swr";
 import { fetcher } from "utils";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
+  const { portal } = usePortal();
   return (
     <SWRConfig
       value={{
@@ -11,6 +14,7 @@ function MyApp({ Component, pageProps }) {
           console.log(err);
         },
       }}>
+      <div className="portal" id="portal" />
       <Component {...pageProps} />
     </SWRConfig>
   );

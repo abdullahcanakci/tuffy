@@ -1,5 +1,26 @@
 .sidebar {
-  @apply bg-[#1f1f1f] w-[220px] text-[#ddd];
+  @apply bg-[#1f1f1f] w-[220px] text-[#ddd] overflow-auto;
+  scrollbar-color: #ddd #555;
+  scrollbar-width: thin;
+}
+
+.sidebar {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #ddd;
+  }
 }
 
 .sidebar > nav {

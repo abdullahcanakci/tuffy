@@ -27,11 +27,11 @@ const Sidebar = () => {
       <nav>
         <Section>
           <SectionTitle title="Quick Links" />
-          <li>
+          <ul>
             {quickLinks.map((link) => (
               <QuickLink content={link} />
             ))}
-          </li>
+          </ul>
         </Section>
         <Section>
           <SectionTitle title="Quick Links" onNewEntry={onNewEntry} />
