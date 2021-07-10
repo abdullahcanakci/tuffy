@@ -3,7 +3,7 @@ import Folder from "./Folder";
 import styles from "./index.module.scss";
 import Section from "./Section";
 import SectionTitle from "./SectionTitle";
-import { Book, Bell, CheckSquare, Edit3, Heart } from "react-feather";
+import { Book, Bell, CheckSquare, Edit3, Heart, X } from "react-feather";
 import { useTags } from "hooks";
 import { Spinner } from "..";
 
@@ -44,7 +44,11 @@ const Sidebar = () => {
                   content={link}
                   key={link.id}
                   actions={[
-                    { label: "Delete", onClick: () => deleteTag(link.id) },
+                    {
+                      label: "Delete",
+                      onClick: () => deleteTag(link.id),
+                      icon: <X />,
+                    },
                   ]}
                 />
               ))}

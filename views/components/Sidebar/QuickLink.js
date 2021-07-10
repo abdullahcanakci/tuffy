@@ -14,6 +14,7 @@ const QuickLink = ({ content, actions }) => {
             <Menu.Item
               key={action.label}
               label={action.label}
+              icon={action.icon}
               onClick={action.onClick}
             />
           ))}

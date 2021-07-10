@@ -2,6 +2,7 @@ import { usePortal } from "hooks";
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 import React from "react";
+import classNames from "classnames";
 
 const useMenu = () => {
   const [visible, setVisible] = useState(false);
@@ -66,10 +67,11 @@ const Menu = ({ children, visible, position, outside, ...rest }) => {
   }
 };
 
-const Item = ({ label, onClick }) => {
+const Item = ({ label, onClick, icon }) => {
   return (
-    <div onClick={onClick} className={styles.item}>
-      {label}
+    <div onClick={onClick} className={classNames(styles.item, "flex flex-row")}>
+      <div className={styles.icon}>{icon}</div>
+      <span className="flex-1">{label}</span>
     </div>
   );
 };
