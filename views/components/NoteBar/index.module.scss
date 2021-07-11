@@ -1,0 +1,76 @@
+.notebar {
+  @apply bg-[#282828] w-[350px] text-[#e7e7e7] overflow-auto border-r-[1px] border-[#393939] flex flex-col;
+}
+
+.note {
+  @apply flex flex-row py-3 border-b-[1px] border-[#393939] cursor-pointer;
+  &:hover {
+    @apply bg-[#393939];
+  }
+}
+
+.detail {
+  @apply w-full flex flex-col pr-2;
+
+  span {
+    @apply block text-[#999] text-sm;
+    align-self: flex-end;
+  }
+}
+
+.title {
+  @apply pb-1;
+  font-weight: 800;
+  width: calc(350px - 35.81px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.abstract {
+  @apply text-[#999];
+}
+
+.ear {
+  @apply w-[40px];
+}
+
+.color {
+  @apply mx-auto w-[16px] h-[16px] rounded block;
+  svg {
+    width: 100%;
+    fill: currentColor;
+  }
+}
+
+.search_box {
+  @apply py-3 px-2 flex flex-row;
+
+  form {
+    @apply flex-1;
+  }
+}
+
+.search_area {
+  @apply px-2 rounded-full bg-[#323232] flex flex-row py-1 text-[#dddddd99];
+
+  span {
+    @apply block w-6;
+
+    svg {
+      @apply block w-full p-1 m-auto;
+    }
+  }
+
+  input {
+    @apply flex-1 bg-transparent outline-none text-[0.9rem];
+  }
+}
+
+.new_note_btn {
+  @apply bg-green-400 rounded-full p-[4px] ml-2;
+
+  &:hover {
+    @apply bg-green-500;
+  }
+}

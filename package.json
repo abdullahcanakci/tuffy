@@ -12,6 +12,7 @@
     "autoprefixer": "^10.2.6",
     "bcrypt": "^5.0.1",
     "classnames": "^2.3.1",
+    "date-fns": "^2.22.1",
     "mongodb": "^3.6.9",
     "next": "11.0.1",
     "next-connect": "^0.10.1",

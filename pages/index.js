@@ -1,12 +1,17 @@
 import { useTags } from "hooks";
 import { useUser } from "hooks";
 import Head from "next/head";
+import { Spinner } from "views/components";
 import { Dashboard } from "views/containers";
 
 const Index = () => {
   const { user } = useUser({ redirectTo: "/auth/login" });
   if (!user || !user.isLoggedIn) {
-    return <p>Loading...</p>;
+    return (
+      <div className="w-full h-screen bg-[#1f1f1f]">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
