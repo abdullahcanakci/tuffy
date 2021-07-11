@@ -3,7 +3,7 @@
 }
 
 .search_area {
-  @apply px-2 rounded-full bg-[#323232] flex flex-row py-1 text-[#dddddd99];
+  @apply px-2 rounded-full bg-[#323232] flex flex-row text-[#dddddd99] py-1;
 
   span {
     @apply block w-6;
@@ -14,7 +14,7 @@
   }
 
   input {
-    @apply flex-1 bg-transparent outline-none text-[0.9rem];
+    @apply flex-1 bg-transparent  text-[0.9rem] outline-none;
   }
 }
 

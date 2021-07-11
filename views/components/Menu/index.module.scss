@@ -9,7 +9,7 @@
 }
 
 .item {
-  @apply text-[#ddd] px-1 py-1 pr-[20px];
+  @apply text-[#ddd] px-1 pr-[20px] py-1;
 }
 .item:hover {
   @apply text-green-400;
@@ -18,7 +18,8 @@
 }
 
 .icon {
-  @apply mx-[2px];
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .icon,

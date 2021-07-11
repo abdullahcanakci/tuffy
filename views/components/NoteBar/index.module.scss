@@ -5,7 +5,7 @@
 .note {
   @apply flex flex-row py-3 border-b-[1px] border-[#393939] cursor-pointer;
   &:hover {
-    @apply bg-[#393939];
+    background-color: #393939;
   }
 }
 
@@ -28,11 +28,11 @@
 }
 
 .abstract {
-  @apply text-[#999];
+  color: #999;
 }
 
 .ear {
-  @apply w-[40px];
+  width: 40px;
 }
 
 .color {
@@ -52,7 +52,7 @@
 }
 
 .search_area {
-  @apply px-2 rounded-full bg-[#323232] flex flex-row py-1 text-[#dddddd99];
+  @apply px-2 rounded-full bg-[#323232] text-[#dddddd99] flex flex-row py-1;
 
   span {
     @apply block w-6;
@@ -63,7 +63,7 @@
   }
 
   input {
-    @apply flex-1 bg-transparent outline-none text-[0.9rem];
+    @apply flex-1 bg-transparent  text-[0.9rem] outline-none;
   }
 }
 
