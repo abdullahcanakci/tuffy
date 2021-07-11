@@ -55,6 +55,10 @@ body {
   }
 }
 
+button.btn-icon {
+  @apply text-white;
+}
+
 button.btn-icon:hover {
   @apply text-green-400;
 }

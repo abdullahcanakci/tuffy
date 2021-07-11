@@ -1,5 +1,5 @@
 .notebar {
-  @apply bg-[#282828] w-[350px] text-[#e7e7e7] overflow-auto border-r-[1px] border-[#393939] flex flex-col;
+  @apply bg-[#282828] w-[350px] text-[#e7e7e7] overflow-auto border-r-[1px] border-[#393939] flex flex-col flex-shrink-0;
 }
 
 .note {
