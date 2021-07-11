@@ -10,7 +10,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body
+          style={{ width: "100%", height: "100%", backgroundColor: "#1f1f1f" }}>
           <Main />
           <div id="portal"></div>
           <NextScript />
