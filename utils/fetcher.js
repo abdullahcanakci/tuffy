@@ -1,5 +1,4 @@
 const fetcher = async (...args) => {
-  console.log(args);
   try {
     const response = await fetch(...args);
 
@@ -14,7 +13,6 @@ const fetcher = async (...args) => {
     error.data = data;
     throw error;
   } catch (error) {
-    console.log(error);
     if (!error.data) {
       error.data = { message: error.message };
     }

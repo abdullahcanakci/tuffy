@@ -14,7 +14,6 @@ const Logout = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
-      console.log(maybeUser);
       mutateUser(maybeUser);
     } catch (error) {
       console.error("An error occurred while logging in", error);

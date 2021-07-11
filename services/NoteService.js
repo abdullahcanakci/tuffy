@@ -16,7 +16,6 @@ const createNote = (name) => {
 };
 
 const deleteNote = (id) => {
-  console.log(id);
   fetcher(`/api/notes/${id}`, {
     method: "DELETE",
   });

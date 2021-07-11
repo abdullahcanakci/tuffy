@@ -23,7 +23,14 @@ const useMenu = () => {
   };
 };
 
-const Menu = ({ children, visible, position, outside, ...rest }) => {
+const Menu = ({
+  children,
+  visible,
+  position,
+  side = "right",
+  outside,
+  ...rest
+}) => {
   const { render } = usePortal();
   const ref = useRef();
   useEffect(() => {
@@ -42,8 +49,8 @@ const Menu = ({ children, visible, position, outside, ...rest }) => {
     outside();
     childOnClick(event);
   };
-
   if (visible) {
+    const xOffset = side === "left" ? "-100%" : "0";
     return render(
       <div
         {...rest}
@@ -53,6 +60,7 @@ const Menu = ({ children, visible, position, outside, ...rest }) => {
           position: "absolute",
           left: `${position.x + 10}px`,
           top: `${position.y + 10}px`,
+          transform: `translate(${xOffset}, 0)`,
         }}>
         {React.Children.map(children, (child) => {
           return React.cloneElement(child, {
@@ -71,7 +79,7 @@ const Item = ({ label, onClick, icon }) => {
   return (
     <div onClick={onClick} className={classNames(styles.item, "flex flex-row")}>
       <div className={styles.icon}>{icon}</div>
-      <span className="flex-1">{label}</span>
+      <span className="flex-1 whitespace-nowrap">{label}</span>
     </div>
   );
 };

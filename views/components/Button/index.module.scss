@@ -1,0 +1,12 @@
+button.icon {
+  @apply text-white;
+  &:hover,
+  &:active,
+  &:focus {
+    @apply text-green-400;
+  }
+
+  svg {
+    @apply block w-full p-1 m-auto;
+  }
+}

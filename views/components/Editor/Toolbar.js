@@ -1,14 +1,23 @@
 import classNames from "classnames";
 import { useTags } from "hooks";
 import { useState } from "react";
-import { Bell, MoreHorizontal, Paperclip, Share2, Tag, X } from "react-feather";
+import {
+  Bell,
+  Download,
+  MoreHorizontal,
+  Paperclip,
+  Plus,
+  Share,
+  Share2,
+  Tag,
+  X,
+} from "react-feather";
+import Icon from "../Button/Icon";
 import styles from "./index.module.scss";
 
 const Toolbar = ({ tags: noteTags = [] }) => {
   const [search, setSearch] = useState("");
   const { tags, tagsLoading } = useTags();
-  console.log("tags", tags);
-  console.log("noteTags", noteTags);
   return (
     <div>
       <div className={styles.toolbar}>
@@ -42,26 +51,44 @@ const Toolbar = ({ tags: noteTags = [] }) => {
               onClick={() => confirmEntry}></button>
           </div>
         </form>
-        <button className="btn-icon">
-          <span>
-            <Paperclip />
-          </span>
-        </button>
-        <button className="btn-icon">
-          <span>
-            <Bell />
-          </span>
-        </button>
-        <button className="btn-icon">
-          <span>
-            <Share2 />
-          </span>
-        </button>
-        <button className="btn-icon">
-          <span>
-            <MoreHorizontal />
-          </span>
-        </button>
+        <Icon
+          icon={<Paperclip />}
+          side="left"
+          actions={[
+            {
+              label: "Upload Image",
+              onClick: () => console.log("upload image"),
+              icon: <Share />,
+            },
+          ]}
+        />
+        <Icon
+          icon={<Bell />}
+          side="left"
+          actions={[
+            {
+              label: "Set Reminder",
+              onClick: () => console.log("Reminder Set"),
+              icon: <Plus />,
+            },
+          ]}
+        />
+        <Icon
+          icon={<Share2 />}
+          side="left"
+          actions={[
+            {
+              label: "Download",
+              onClick: () => console.log("Download"),
+              icon: <Download />,
+            },
+          ]}
+        />
+        <Icon
+          icon={<MoreHorizontal />}
+          side="left"
+          onClick={() => console.log("More")}
+        />
       </div>
       <ul className="flex flex-row px-2">
         {!tagsLoading &&

@@ -8,7 +8,6 @@ const useTags = ({ key = null } = {}) => {
     user?.isLoggedIn && "/api/tags"
   );
   const tagsLoading = tags === undefined;
-  console.log(tags);
   const createTag = (name) => {
     const tag = TagService.createTag(name);
     mutateTags([...tags, tag], false);

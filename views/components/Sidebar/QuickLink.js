@@ -9,7 +9,7 @@ const QuickLink = ({ content, actions }) => {
       <div className={styles.quicklink_icon}>{content.icon}</div>
       <li>{content.name}</li>
       {actions && actions.length > 0 && (
-        <Menu {...menu}>
+        <Menu {...menu} side="right">
           {actions.map((action) => (
             <Menu.Item
               key={action.label}
