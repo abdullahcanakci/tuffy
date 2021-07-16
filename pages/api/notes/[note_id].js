@@ -1,7 +1,8 @@
 import { session } from "utils";
 import nextConnect from "next-connect";
 import connectToDatabase from "utils/connectToDatabase";
-import { ObjectId } from "bson";
+import { ObjectID, ObjectId } from "bson";
+import { formatISO } from "date-fns";
 
 const handler = nextConnect();
 
@@ -12,14 +13,14 @@ handler.use(session).get(async (req, res) => {
     return;
   }
 
-  res.json({
-    id: 1,
-    title: "Fusion Energy",
-    abstract: "Generating endless energy with",
-    color: "#ec5453",
-    date: "2012-12-19T06:01:17.171Z",
-    tags: ["60e9f4e32a55a90000a78fa2", "60e9f4e52a55a90000a78fa3"],
-  });
+  const { note_id } = req.query;
+
+  const { db } = await connectToDatabase();
+  const note = await db
+    .collection("notes")
+    .findOne({ _id: ObjectID(note_id) }, { _id: 1, title: 1, updated_at: 1 });
+
+  res.json({ ...note, id: note._id.toString() });
 });
 
 handler.use(session).post(async (req, res) => {
@@ -30,17 +31,20 @@ handler.use(session).post(async (req, res) => {
   }
 
   const { note_id } = req.query;
-  const { name, body, abstract, date } = req.body;
+  const { title, body, abstract } = req.body;
 
   const { db } = await connectToDatabase();
 
   const note = await db.collection("notes").updateOne(
     { _id: ObjectId(note_id) }, // filter
-    { $set: { name, body, abstract, date } }, // data
+    {
+      $setOnInsert: { created_at: formatISO(new Date()) },
+      $set: { title, body, abstract, updated_at: formatISO(new Date()) },
+    }, // data
     { upsert: true } // options
   );
 
-  res.json({ data: { note } });
+  res.json({ ...note, id: note._id.toString() });
 });
 
 handler.use(session).delete(async (req, res) => {

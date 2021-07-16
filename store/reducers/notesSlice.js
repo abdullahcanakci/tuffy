@@ -1,7 +1,4 @@
-import { NoteService } from "services";
-import { fetcher } from "utils";
-
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: [],
@@ -23,12 +20,16 @@ const notesSlice = createSlice({
     },
     deleteData: (state, action) => {
       state.data = state.data.filter((d) => d.id != action.payload);
-      return state;
+    },
+    updateEntry: (state, action) => {
+      state.data = state.data.map((d) =>
+        d.id == action.payload.id ? { ...action.payload, isDirty: true } : d
+      );
     },
   },
 });
 
-export const { updateData, updateState, deleteData, insertNote } =
+export const { updateData, updateState, deleteData, insertNote, updateEntry } =
   notesSlice.actions;
 
 export default notesSlice.reducer;

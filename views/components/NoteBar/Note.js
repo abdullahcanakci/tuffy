@@ -2,21 +2,26 @@ import { format } from "date-fns";
 import useNotes from "hooks/useNotes";
 import { useMemo } from "react";
 import { Circle, X } from "react-feather";
+import { NoteService } from "services";
 import { Menu } from "..";
 import styles from "./index.module.scss";
 
 const Note = ({ note }) => {
   const date = useMemo(() => {
-    if (note.date) {
-      return format(new Date(note.date), "MM/dd/yyyy");
+    if (note.updated_at) {
+      return format(new Date(note.updated_at), "MM/dd/yyyy");
     }
     return null;
-  }, [note.date]);
+  }, [note.updated_at]);
   const { container, menu } = Menu.useMenu();
   const { deleteNote } = useNotes();
 
+  const selectNote = () => {
+    NoteService.selectNote(note);
+  };
+
   return (
-    <div className={styles.note} {...container}>
+    <div className={styles.note} {...container} onClick={selectNote}>
       <div className={styles.ear}>
         {note.color && (
           <span className={styles.color} style={{ color: note.color }}>
@@ -25,7 +30,9 @@ const Note = ({ note }) => {
         )}
       </div>
       <div className={styles.detail}>
-        <h3 className={styles.title}>{note.title}</h3>
+        <h3 className={styles.title}>
+          {note.title} {note.new_note && !note.title && <>- New Note -</>}
+        </h3>
         <p className={styles.abstract}>{note.abstract}</p>
         <span>{date}</span>
       </div>

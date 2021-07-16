@@ -6,25 +6,38 @@ import {
   insertNote,
   updateData,
   updateState,
+  updateEntry,
 } from "store/reducers/notesSlice";
+
+import {
+  updateState as updateNoteState,
+  setData as setSelectedNote,
+} from "store/reducers/noteSlice";
 
 const { fetcher } = require("utils");
 
 const createNote = (title) => {
   const note = {
     id: ObjectID().toString(),
-    title,
-    date: formatISO(new Date())
+    title: "",
+    created_at: formatISO(new Date()),
+    updated_at: formatISO(new Date()),
+    new_note: true,
   };
 
   store.dispatch(insertNote(note));
+  store.dispatch(setSelectedNote(note));
 
-  fetcher(`/api/notes/${note.id}`, {
+  return note;
+};
+
+const storeNote = (note) => {
+  /* fetcher(`/api/notes/${note.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
-  });
-  return note;
+  }); */
+  store.dispatch(updateEntry(note));
 };
 
 const deleteNote = (id) => {
@@ -37,11 +50,18 @@ const deleteNote = (id) => {
   store.dispatch(fn);
 };
 
+const selectNote = (note) => {
+  store.dispatch(updateNoteState("loading"));
+
+  fetcher(`/api/notes/${note.id}`, { method: "GET" }).then((data) => {
+    store.dispatch(setSelectedNote(data));
+  });
+};
+
 const fetchAll = () => {
   const fn = (dispatch, getState) => {
     dispatch(updateState("loading"));
     fetcher("/api/notes", { method: "GET" }).then((data) => {
-      console.log("all", data);
       dispatch(updateData(data));
       dispatch(updateState("complete"));
     });
@@ -53,5 +73,7 @@ const NoteService = {};
 NoteService.createNote = createNote;
 NoteService.deleteNote = deleteNote;
 NoteService.fetchAll = fetchAll;
+NoteService.selectNote = selectNote;
+NoteService.storeNote = storeNote;
 
 export default NoteService;

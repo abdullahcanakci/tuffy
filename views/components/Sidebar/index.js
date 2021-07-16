@@ -29,7 +29,7 @@ const Sidebar = () => {
           <SectionTitle title="Quick Links" />
           <ul>
             {quickLinks.map((link) => (
-              <QuickLink content={link} key={link.id} />
+              <QuickLink content={link} key={link.name} />
             ))}
           </ul>
         </Section>

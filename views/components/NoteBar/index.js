@@ -13,8 +13,6 @@ const NoteBar = () => {
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
 
-  console.log("bar", notes);
-
   const renderNotes = () => {
     if (!notes || notes.length == 0) {
       return (
@@ -39,7 +37,10 @@ const NoteBar = () => {
 
   const confirmEntry = () => {
     console.log(search);
-    NoteService.createNote("test");
+  };
+
+  const createNote = () => {
+    NoteService.createNote("");
   };
 
   return (
@@ -83,7 +84,7 @@ const NoteBar = () => {
               onClick={() => confirmEntry}></button>
           </div>
         </form>
-        <button className={styles.new_note_btn} onClick={() => confirmEntry()}>
+        <button className={styles.new_note_btn} onClick={() => createNote()}>
           <Plus />
         </button>
       </div>

@@ -16,7 +16,6 @@ const createTag = (name) => {
 };
 
 const deleteTag = (id) => {
-  console.log(id);
   fetcher(`/api/tags/${id}`, {
     method: "DELETE",
   });

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Menu } from "..";
 import styles from "./index.module.scss";
 
-const Icon = ({ actions, icon, onClick, className, side }) => {
+const Icon = ({ actions = null, icon, onClick, className, side }) => {
   const {
     container: { onContextMenu },
     menu,
