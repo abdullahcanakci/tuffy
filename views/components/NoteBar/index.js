@@ -2,16 +2,21 @@ import classNames from "classnames";
 import useNotes from "hooks/useNotes";
 import { useState } from "react";
 import { Filter, Plus, Search, X } from "react-feather";
+import { useSelector } from "react-redux";
+import { NoteService } from "services";
 import { Spinner } from "..";
 import styles from "./index.module.scss";
 import Note from "./Note";
 
-const NoteBar = ({}) => {
-  const { data, loading } = useNotes();
+const NoteBar = () => {
+  const notes = useSelector((state) => state.notes.data);
+  const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
 
+  console.log("bar", notes);
+
   const renderNotes = () => {
-    if (data.length == 0) {
+    if (!notes || notes.length == 0) {
       return (
         <>
           <div className="w-full h-full flex-1 flex flex-col  justify-center">
@@ -24,7 +29,7 @@ const NoteBar = ({}) => {
     } else {
       return (
         <>
-          {data.map((note) => (
+          {notes.map((note) => (
             <Note key={note.id} note={note} />
           ))}
         </>
@@ -34,6 +39,7 @@ const NoteBar = ({}) => {
 
   const confirmEntry = () => {
     console.log(search);
+    NoteService.createNote("test");
   };
 
   return (
@@ -77,11 +83,11 @@ const NoteBar = ({}) => {
               onClick={() => confirmEntry}></button>
           </div>
         </form>
-        <button className={styles.new_note_btn} onClick={() => confirmEntry}>
+        <button className={styles.new_note_btn} onClick={() => confirmEntry()}>
           <Plus />
         </button>
       </div>
-      {loading ? <Spinner /> : <>{renderNotes()}</>}
+      {status == "loading" ? <Spinner /> : <>{renderNotes()}</>}
     </div>
   );
 };
