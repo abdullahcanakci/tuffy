@@ -1,0 +1,7 @@
+mode: auto
+branchName: "${issue.number}-${issue.title,}"
+autoCloseIssue: true
+
+openDraftPR: true
+copyIssueLabelsToPR: true
+copyIssueAssigneeToPR: true
