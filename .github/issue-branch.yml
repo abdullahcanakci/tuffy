@@ -4,3 +4,4 @@ autoCloseIssue: true
 
 copyIssueLabelsToPR: true
 copyIssueAssigneeToPR: true
+openPR: true
