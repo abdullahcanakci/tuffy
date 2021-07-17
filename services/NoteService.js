@@ -59,6 +59,12 @@ const selectNote = (note) => {
     const state = getState();
     if (state.notes.active) {
       const note = state.notes.data[state.notes.active];
+      if (!note) {
+        // After a note is deleted a selectEvent might fire
+        // We should check against it and
+        // if there is no active note to switch in memory we should bail!
+        return;
+      }
       if (note.status == DataStates.DIRTY) {
         persistNote(note);
       }
@@ -83,10 +89,18 @@ const selectNote = (note) => {
   store.dispatch(fn);
 };
 
-const fetchAll = () => {
+const fetchAll = (refetch = false) => {
   const fn = (dispatch, getState) => {
-    dispatch(setState(NetworkStates.FETCH));
-    fetcher("/api/notes", { method: "GET" }).then((data) => {
+    const state = getState();
+    if (state.notes.next == null && refetch == false) {
+      return;
+    }
+    dispatch(
+      setState(
+        state.notes.next ? NetworkStates.FETCH_MORE : NetworkStates.FETCH
+      )
+    );
+    fetcher("/api/notes?" + state.notes.next).then((data) => {
       dispatch(setData(data));
     });
   };

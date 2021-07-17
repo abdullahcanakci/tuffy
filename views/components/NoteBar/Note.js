@@ -1,12 +1,11 @@
 import classNames from "classnames";
 import { format } from "date-fns";
-import useNotes from "hooks/useNotes";
 import { useMemo } from "react";
 import { AlertCircle, Circle, Loader, X } from "react-feather";
 import { useSelector } from "react-redux";
 import { NoteService } from "services";
 import { DataStates } from "store/states";
-import { Menu, Spinner } from "..";
+import { Menu } from "..";
 import styles from "./index.module.scss";
 
 const Note = ({ id }) => {
@@ -18,7 +17,6 @@ const Note = ({ id }) => {
     return null;
   }, [note.updated_at]);
   const { container, menu } = Menu.useMenu();
-  const { deleteNote } = useNotes();
 
   const selectNote = () => {
     NoteService.selectNote(note);
@@ -62,7 +60,7 @@ const Note = ({ id }) => {
         <Menu.Item
           label="Delete"
           icon={<X />}
-          onClick={() => deleteNote(note.id)}
+          onClick={() => NoteService.deleteNote(note.id)}
         />
       </Menu>
     </div>
