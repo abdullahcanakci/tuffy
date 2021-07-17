@@ -4,15 +4,13 @@ import store from "store";
 import {
   deleteData,
   insertNote,
-  updateData,
-  updateState,
   updateEntry,
+  setActive,
+  setState,
+  setData,
 } from "store/reducers/notesSlice";
 
-import {
-  updateState as updateNoteState,
-  setData as setSelectedNote,
-} from "store/reducers/noteSlice";
+import states from "store/network";
 
 const { fetcher } = require("utils");
 
@@ -26,17 +24,16 @@ const createNote = (title) => {
   };
 
   store.dispatch(insertNote(note));
-  store.dispatch(setSelectedNote(note));
 
   return note;
 };
 
 const storeNote = (note) => {
-  /* fetcher(`/api/notes/${note.id}`, {
+  fetcher(`/api/notes/${note.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
-  }); */
+  });
   store.dispatch(updateEntry(note));
 };
 
@@ -51,19 +48,25 @@ const deleteNote = (id) => {
 };
 
 const selectNote = (note) => {
-  store.dispatch(updateNoteState("loading"));
-
-  fetcher(`/api/notes/${note.id}`, { method: "GET" }).then((data) => {
-    store.dispatch(setSelectedNote(data));
-  });
+  store.dispatch(
+    setActive({
+      id: note.id,
+      status: note.new_note ? states.COMPLETE : states.FETCH_ONE,
+      data: note,
+    })
+  );
+  if (!note.new_note) {
+    fetcher(`/api/notes/${note.id}`, { method: "GET" }).then((data) => {
+      store.dispatch(setActive({ id: note.id, status: states.COMPLETE, data }));
+    });
+  }
 };
 
 const fetchAll = () => {
   const fn = (dispatch, getState) => {
-    dispatch(updateState("loading"));
+    dispatch(setState(states.FETCH));
     fetcher("/api/notes", { method: "GET" }).then((data) => {
-      dispatch(updateData(data));
-      dispatch(updateState("complete"));
+      dispatch(setData(data));
     });
   };
   store.dispatch(fn);

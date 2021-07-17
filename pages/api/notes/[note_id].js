@@ -41,10 +41,10 @@ handler.use(session).post(async (req, res) => {
       $setOnInsert: { created_at: formatISO(new Date()) },
       $set: { title, body, abstract, updated_at: formatISO(new Date()) },
     }, // data
-    { upsert: true } // options
+    { upsert: true, returnOriginal: true } // options
   );
-
-  res.json({ ...note, id: note._id.toString() });
+  console.log("test", note._id);
+  res.json({ id: note_id, title, body, abstract });
 });
 
 handler.use(session).delete(async (req, res) => {

@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import NoteBar from "views/components/NoteBar";
 import Sidebar from "views/components/Sidebar";
 import Editor from "views/components/Editor";
-import { useDispatch } from "react-redux";
-import { fetch, fetchAll } from "store/reducers/notesSlice";
-import store from "store";
 import { NoteService } from "services";
 
 const Dashboard = () => {

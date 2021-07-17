@@ -6,10 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import Icon from "../Button/Icon";
 import { X } from "react-feather";
 import { NoteService } from "services";
+import { activeNote } from "store/reducers/notesSlice";
+import states from "store/network";
 
 const Editor = () => {
-  const status = useSelector((state) => state.note.status);
-  const note = useSelector((state) => state.note.data);
+  const status = useSelector((state) => state.notes.status);
+  const note = useSelector(activeNote);
+  const [isDirty, setIsDirty] = useState(false);
 
   const [title, setTitle] = useState("");
   const titleInput = useRef(null);
@@ -23,6 +26,12 @@ const Editor = () => {
     }
   }, [note]);
 
+  const onBlur = () => {
+    if (title != note.title) {
+      isDirty = true;
+    }
+  };
+
   useEffect(() => {
     if (note) {
       const handle = setInterval(() => {
@@ -30,7 +39,7 @@ const Editor = () => {
       }, 2000);
       return () => clearInterval(handle);
     }
-  }, [note, title]);
+  }, [note, isDirty]);
 
   const renderEditor = () => {
     return (
@@ -45,6 +54,7 @@ const Editor = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 ref={titleInput}
+                onBlur={onBlur}
               />
               {title.length > 0 && titleInput.current && (
                 <Icon icon={<X />} onClick={(e) => setTitle("")} />
@@ -56,7 +66,6 @@ const Editor = () => {
     );
   };
 
-  console.log(note);
   const renderCallToAction = () => {
     return (
       <>
@@ -74,8 +83,7 @@ const Editor = () => {
 
   return (
     <div className={styles.editor}>
-      {status == 0 && renderCallToAction()}
-      {status == 1 && renderLoading()}
+      {!note && renderCallToAction()}
       {note && renderEditor()}
     </div>
   );

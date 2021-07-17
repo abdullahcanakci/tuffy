@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Filter, Plus, Search, X } from "react-feather";
 import { useSelector } from "react-redux";
 import { NoteService } from "services";
+import states from "store/network";
+import { notesList } from "store/reducers/notesSlice";
 import { Spinner } from "..";
 import styles from "./index.module.scss";
 import Note from "./Note";
 
 const NoteBar = () => {
-  const notes = useSelector((state) => state.notes.data);
+  const notes = useSelector(notesList);
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
 
@@ -88,7 +90,7 @@ const NoteBar = () => {
           <Plus />
         </button>
       </div>
-      {status == "loading" ? <Spinner /> : <>{renderNotes()}</>}
+      {status == states.FETCH ? <Spinner /> : <>{renderNotes()}</>}
     </div>
   );
 };
