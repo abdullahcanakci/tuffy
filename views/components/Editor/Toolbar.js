@@ -24,7 +24,7 @@ const Toolbar = ({ tags: noteTags = [] }) => {
         <form onSubmit={() => confirmEntry()}>
           <div className={styles.search_area}>
             <span className="btn-icon">
-              <Tag />{" "}
+              <Tag />
             </span>
             <input
               type="text"

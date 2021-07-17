@@ -4,17 +4,16 @@ import { useState } from "react";
 import { Filter, Plus, Search, X } from "react-feather";
 import { useSelector } from "react-redux";
 import { NoteService } from "services";
-import states from "store/network";
-import { notesList } from "store/reducers/notesSlice";
+import { NetworkStates } from "store/states";
 import { Spinner } from "..";
 import styles from "./index.module.scss";
 import Note from "./Note";
 
 const NoteBar = () => {
-  const notes = useSelector(notesList);
+  const notes = useSelector((state) => state.notes.notesList);
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
-
+  console.log("notebar render");
   const renderNotes = () => {
     if (!notes || notes.length == 0) {
       return (
@@ -30,7 +29,7 @@ const NoteBar = () => {
       return (
         <>
           {notes.map((note) => (
-            <Note key={note.id} note={note} />
+            <Note key={note} id={note} />
           ))}
         </>
       );
@@ -90,7 +89,7 @@ const NoteBar = () => {
           <Plus />
         </button>
       </div>
-      {status == states.FETCH ? <Spinner /> : <>{renderNotes()}</>}
+      {status == NetworkStates.FETCH ? <Spinner /> : <>{renderNotes()}</>}
     </div>
   );
 };

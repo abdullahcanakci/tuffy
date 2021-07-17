@@ -21,7 +21,6 @@
 .title {
   @apply pb-1;
   font-weight: 800;
-  width: calc(350px - 35.81px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -72,5 +71,13 @@
 
   &:hover {
     @apply bg-green-500;
+  }
+}
+
+.status_icon {
+  color: #dddddd99;
+
+  svg {
+    @apply block w-full p-1 m-auto;
   }
 }

@@ -7,7 +7,7 @@ import Icon from "../Button/Icon";
 import { X } from "react-feather";
 import { NoteService } from "services";
 import { activeNote } from "store/reducers/notesSlice";
-import states from "store/network";
+import { DataStates } from "store/states";
 
 const Editor = () => {
   const status = useSelector((state) => state.notes.status);
@@ -28,18 +28,28 @@ const Editor = () => {
 
   const onBlur = () => {
     if (title != note.title) {
-      isDirty = true;
+      setIsDirty(true);
     }
   };
 
   useEffect(() => {
-    if (note) {
-      const handle = setInterval(() => {
+    if (isDirty) {
+      const handle = setTimeout(() => {
+        setIsDirty(false);
         NoteService.storeNote({ ...note, title: title });
-      }, 2000);
-      return () => clearInterval(handle);
+      }, 500);
+      return () => clearTimeout(handle);
     }
-  }, [note, isDirty]);
+  }, [isDirty]);
+
+  useEffect(() => {
+    if (note?.status == DataStates.DIRTY) {
+      const handle = setTimeout(() => {
+        NoteService.persistNote(note);
+      }, 5000);
+      return () => clearTimeout(handle);
+    }
+  }, [note?.status]);
 
   const renderEditor = () => {
     return (

@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import states from "../network";
+import { DataStates, NetworkStates } from "../states";
 
 const initialState = {
   data: {},
+  notesList: [],
+  dirtyList: [],
   active: null,
-  status: states,
+  status: NetworkStates,
 };
 
 const notesSlice = createSlice({
@@ -15,15 +17,16 @@ const notesSlice = createSlice({
       console.log("setData", action.payload);
       state.data = action.payload.reduce((acc, curr) => {
         acc[curr.id] = curr;
+        state.notesList.push(curr.id);
         return acc;
       }, {});
-      state.status = states.COMPLETE;
+      state.status = NetworkStates.COMPLETE;
     },
     setActive: (state, action) => {
       state.status = action.payload.status;
       state.active = action.payload.id;
       if (
-        action.payload.status == states.COMPLETE &&
+        action.payload.status == NetworkStates.COMPLETE &&
         !action.payload.data.new_note
       ) {
         state.data[action.payload.id] = action.payload.data;
@@ -33,13 +36,21 @@ const notesSlice = createSlice({
       state.status = action.payload;
     },
     insertNote: (state, action) => {
-      state.data = { [`${action.payload.id}`]: action.payload, ...state.data };
-      state.active = action.payload.id;
+      state.data[`${action.payload.id}`] = action.payload;
+      state.notesList.unshift(action.payload.id);
+      //state.active = action.payload.id;
     },
     deleteData: (state, action) => {
-      delete state.data[action.payload.id];
+      state.notesList = state.notesList.filter((x) => x != action.payload);
+      delete state.data[action.payload];
     },
     updateEntry: (state, action) => {
+      if (
+        action.payload.status == DataStates.DIRTY &&
+        !state.dirtyList.includes(action.payload.id)
+      ) {
+        state.dirtyList.push(action.payload.id);
+      }
       state.data[action.payload.id] = action.payload;
     },
   },
@@ -58,9 +69,12 @@ export const {
 export default notesSlice.reducer;
 
 const notesList = (state) => {
-  return Object.values(state.notes.data);
+  return state.notes.notesList.map((id) => state.notes.data[id]);
 };
 const activeNote = (state) =>
   state.notes.active ? state.notes.data[state.notes.active] : null;
 
-export { notesList, activeNote };
+const dirtyNotes = (state) =>
+  state.notes.dirtyList.map((id) => state.notes.data[id]);
+
+export { notesList, activeNote, dirtyNotes };

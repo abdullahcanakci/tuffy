@@ -15,6 +15,10 @@
 .loader {
   border-right-color: transparent;
   animation: loader-rotate 1.5s linear infinite;
+
+  &.slow {
+    animation-duration: 2.5s;
+  }
 }
 
 * {
