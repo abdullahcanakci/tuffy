@@ -6,7 +6,7 @@ import { NoteService } from "services";
 
 const Dashboard = () => {
   useEffect(() => {
-    NoteService.fetchAll();
+    NoteService.fetchAll(true);
   }, []);
 
   return (

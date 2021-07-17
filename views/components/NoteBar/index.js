@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import useNotes from "hooks/useNotes";
 import { useState } from "react";
 import { Filter, Plus, Search, X } from "react-feather";
 import { useSelector } from "react-redux";
@@ -8,12 +7,25 @@ import { NetworkStates } from "store/states";
 import { Spinner } from "..";
 import styles from "./index.module.scss";
 import Note from "./Note";
+import InfiniteScroller from "./InfiniteScroller";
 
 const NoteBar = () => {
   const notes = useSelector((state) => state.notes.notesList);
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
-  console.log("notebar render");
+
+  const fetchMore = (lastRef) => {
+    if (notes.length > 0) {
+      const refId = notes[notes.length - 1];
+      console.log("fetchMore", refId);
+      if (lastRef != refId) {
+        NoteService.fetchAll();
+      }
+      return refId;
+    }
+    return null;
+  };
+
   const renderNotes = () => {
     if (!notes || notes.length == 0) {
       return (
@@ -31,6 +43,17 @@ const NoteBar = () => {
           {notes.map((note) => (
             <Note key={note} id={note} />
           ))}
+          <InfiniteScroller
+            loadingView={<Spinner />}
+            noneView={
+              <div className="w-full h-full flex-1 flex flex-col  justify-center py-4">
+                <p className="block text-[#dddddd99] text-center">
+                  No more notes found!
+                </p>
+              </div>
+            }
+            fetchMore={fetchMore}
+          />
         </>
       );
     }

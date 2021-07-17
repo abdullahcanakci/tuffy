@@ -5,6 +5,7 @@ const initialState = {
   data: {},
   notesList: [],
   dirtyList: [],
+  next: null,
   active: null,
   status: NetworkStates,
 };
@@ -15,11 +16,13 @@ const notesSlice = createSlice({
   reducers: {
     setData: (state, action) => {
       console.log("setData", action.payload);
-      state.data = action.payload.reduce((acc, curr) => {
-        acc[curr.id] = curr;
-        state.notesList.push(curr.id);
-        return acc;
-      }, {});
+
+      const data = action.payload.data;
+      state.next = action.payload.meta.next;
+      data.forEach((element) => {
+        state.data[element.id] = element;
+        state.notesList.push(element.id);
+      });
       state.status = NetworkStates.COMPLETE;
     },
     setActive: (state, action) => {
