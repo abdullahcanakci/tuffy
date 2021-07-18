@@ -3,10 +3,12 @@ import NoteBar from "views/components/NoteBar";
 import Sidebar from "views/components/Sidebar";
 import Editor from "views/components/Editor";
 import { NoteService } from "services";
+import { TagService } from "services";
 
 const Dashboard = () => {
   useEffect(() => {
     NoteService.fetchAll(true);
+    TagService.fetchTags();
   }, []);
 
   return (

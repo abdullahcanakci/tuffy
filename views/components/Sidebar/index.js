@@ -7,7 +7,6 @@ import { Spinner } from "..";
 import { useSelector } from "react-redux";
 import { tagsList } from "store/reducers/tagsSlice";
 import { NetworkStates } from "store/states";
-import { NoteService } from "services";
 import { TagService } from "services";
 
 const Sidebar = () => {
@@ -23,7 +22,7 @@ const Sidebar = () => {
   const tags = useSelector(tagsList);
 
   const onNewEntry = (value) => {
-    NoteService.createTag(value);
+    TagService.createTag(value);
   };
 
   return (

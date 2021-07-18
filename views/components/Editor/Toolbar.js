@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { useTags } from "hooks";
 import { useState } from "react";
 import {
   Bell,
@@ -12,12 +11,14 @@ import {
   Tag,
   X,
 } from "react-feather";
+import { useSelector } from "react-redux";
+import { tagsList } from "store/reducers/tagsSlice";
 import Icon from "../Button/Icon";
 import styles from "./index.module.scss";
 
 const Toolbar = ({ tags: noteTags = [] }) => {
   const [search, setSearch] = useState("");
-  const { tags, tagsLoading } = useTags();
+  const tags = useSelector(tagsList);
   return (
     <div>
       <div className={styles.toolbar}>
@@ -91,21 +92,20 @@ const Toolbar = ({ tags: noteTags = [] }) => {
         />
       </div>
       <ul className="flex flex-row px-2">
-        {!tagsLoading &&
-          tags?.map((tag) => (
-            <>
-              {noteTags.includes(tag.id) && (
-                <li className={styles.tag} key={tag.id}>
-                  {tag.name}
-                  <button className="btn-icon">
-                    <span>
-                      <X />
-                    </span>
-                  </button>
-                </li>
-              )}
-            </>
-          ))}
+        {tags?.map((tag) => (
+          <>
+            {noteTags.includes(tag.id) && (
+              <li className={styles.tag} key={tag.id}>
+                {tag.name}
+                <button className="btn-icon">
+                  <span>
+                    <X />
+                  </span>
+                </button>
+              </li>
+            )}
+          </>
+        ))}
       </ul>
     </div>
   );
