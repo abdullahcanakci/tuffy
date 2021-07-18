@@ -56,6 +56,32 @@ const notesSlice = createSlice({
       }
       state.data[action.payload.id] = action.payload;
     },
+    toggleTag: (state, action) => {
+      const { attach, id, tagId } = action.payload;
+      console.log("toggleTag", { attach, id, tagId });
+      if (!Array.isArray(state.data[id].tags)) {
+        state.data[id].tags = [];
+      }
+      if (attach && !state.data[id].tags.includes(tagId)) {
+        state.data[id].tags.push(tagId);
+      } else {
+        state.data[id].tags = state.data[id].tags.filter((t) => t != tagId);
+      }
+      state.data[id].status = DataStates.DIRTY;
+    },
+    detachTag: (state, action) => {
+      const id = action.payload;
+
+      Object.keys(state.data).map((key) => {
+        if (
+          state.data[key].tags &&
+          state.data[key].tags.length > 0 &&
+          state.data[key].tags.includes(id)
+        ) {
+          state.data[key].tags = state.data[key].tags.filter((t) => t != id);
+        }
+      });
+    },
   },
 });
 
@@ -67,6 +93,8 @@ export const {
   updateEntry,
   setActive,
   setData,
+  toggleTag,
+  detachTag,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;

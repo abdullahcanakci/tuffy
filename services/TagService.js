@@ -6,22 +6,23 @@ import {
   setState,
   deleteTag as deleteTagAction,
 } from "store/reducers/tagsSlice";
+import { detachTag } from "store/reducers/notesSlice";
 import { NetworkStates } from "store/states";
 
 const { fetcher } = require("utils");
 
 const createTag = (name) => {
   const tag = {
-    id: ObjectID(),
+    id: ObjectID().toString(),
     name: name,
   };
   store.dispatch(insertTag({ tag }));
-  persistNote(tag);
+  persistTag(tag);
 
   return tag;
 };
 
-const persistNote = (tag) => {
+const persistTag = (tag) => {
   fetcher(`/api/tags/${tag.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -31,6 +32,7 @@ const persistNote = (tag) => {
 
 const deleteTag = (id) => {
   store.dispatch(deleteTagAction({ tag: { id } }));
+  store.dispatch(detachTag(id));
   fetcher(`/api/tags/${id}`, {
     method: "DELETE",
   });

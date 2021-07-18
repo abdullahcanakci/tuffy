@@ -45,4 +45,11 @@ export default tagsSlice.reducer;
 const tagsList = (state) =>
   state.tags.tagsList.map((id) => state.tags.data[id]);
 
-export { tagsList };
+const tagSearch = (query) => (state) => {
+  if (query == "") return [];
+  return Object.values(state.tags.data)
+    .filter((tag) => tag.name.includes(query))
+    .map((tag) => tag.id);
+};
+
+export { tagsList, tagSearch };

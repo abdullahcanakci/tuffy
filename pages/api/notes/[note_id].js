@@ -18,7 +18,10 @@ handler.use(session).get(async (req, res) => {
   const { db } = await connectToDatabase();
   const note = await db
     .collection("notes")
-    .findOne({ _id: ObjectID(note_id) }, { _id: 1, title: 1, updated_at: 1 });
+    .findOne(
+      { _id: ObjectID(note_id) },
+      { _id: 1, title: 1, updated_at: 1, tags: 1 }
+    );
 
   res.json({ ...note, id: note._id.toString() });
 });
@@ -31,7 +34,7 @@ handler.use(session).post(async (req, res) => {
   }
 
   const { note_id } = req.query;
-  const { title, body, abstract } = req.body;
+  const { title, body, abstract, tags } = req.body;
 
   const { db } = await connectToDatabase();
 
@@ -39,7 +42,7 @@ handler.use(session).post(async (req, res) => {
     { _id: ObjectId(note_id) }, // filter
     {
       $setOnInsert: { created_at: formatISO(new Date()) },
-      $set: { title, body, abstract, updated_at: formatISO(new Date()) },
+      $set: { title, body, abstract, tags, updated_at: formatISO(new Date()) },
     }, // data
     { upsert: true, returnOriginal: true } // options
   );
