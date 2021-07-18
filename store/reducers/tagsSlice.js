@@ -32,9 +32,7 @@ const tagsSlice = createSlice({
     },
     deleteTag: (state, action) => {
       delete state.data[action.payload.tag.id];
-      state.tagsList = state.tagsList.filter(
-        (x) => x.action.payload.tag.id != x
-      );
+      state.tagsList = state.tagsList.filter((x) => action.payload.tag.id != x);
     },
   },
 });
