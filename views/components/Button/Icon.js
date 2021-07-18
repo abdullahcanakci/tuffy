@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Menu } from "..";
 import styles from "./index.module.scss";
 
-const Icon = ({ actions = null, icon, onClick, className, side }) => {
+const Icon = ({ actions = null, icon, onClick, className, side, hover }) => {
   const {
     container: { onContextMenu },
     menu,
@@ -20,8 +20,11 @@ const Icon = ({ actions = null, icon, onClick, className, side }) => {
   return (
     <>
       <button
-        className={classNames(styles.icon, className)}
-        onClick={handleClick}>
+        className={classNames(styles.icon, className, {
+          [`${styles.hoverable}`]: hover,
+        })}
+        onClick={handleClick}
+        type="button">
         {icon}
       </button>
       {actions && (

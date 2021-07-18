@@ -42,7 +42,7 @@
   }
 
   input {
-    @apply flex-1 bg-transparent  text-[0.9rem] outline-none;
+    @apply flex-1 pl-2 bg-transparent  text-[0.9rem] outline-none;
   }
 }
 
@@ -72,5 +72,14 @@
     svg {
       @apply block w-full p-1 m-auto;
     }
+  }
+}
+
+.tag_entry {
+  @apply px-8 py-2 cursor-pointer;
+  &:hover,
+  &:active,
+  &.active {
+    background-color: #3c3d3d;
   }
 }

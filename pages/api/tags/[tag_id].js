@@ -41,6 +41,8 @@ handler.use(session).delete(async (req, res) => {
     { _id: ObjectId(tag_id) } // filter
   );
 
+  await db.collection("notes").update({}, { $pull: { tags: tag_id } });
+
   res.json({});
 });
 

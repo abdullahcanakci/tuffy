@@ -16,11 +16,10 @@ const Editor = () => {
 
   const [title, setTitle] = useState("");
   const titleInput = useRef(null);
-
+  console.log("editor render");
   useEffect(() => {
     if (note) {
       setTitle(note.title);
-      titleInput.current.focus();
     } else {
       setTitle("");
     }
@@ -54,7 +53,7 @@ const Editor = () => {
   const renderEditor = () => {
     return (
       <div>
-        <Toolbar tags={note?.tags} />
+        <Toolbar />
         <div className={styles.main_area}>
           <div className={styles.hero}>
             <div className={styles.hero_title}>
@@ -87,10 +86,6 @@ const Editor = () => {
       </>
     );
   };
-  const renderLoading = () => {
-    return <Spinner />;
-  };
-
   return (
     <div className={styles.editor}>
       {!note && renderCallToAction()}

@@ -8,6 +8,7 @@ import {
   setActive,
   setState,
   setData,
+  toggleTag as toggleTagAction,
 } from "store/reducers/notesSlice";
 
 import { NetworkStates, DataStates } from "store/states";
@@ -42,6 +43,11 @@ const persistNote = (note) => {
   }).then((data) => {
     store.dispatch(updateEntry({ ...note, status: DataStates.PERSISTED }));
   });
+};
+
+const toggleTag = (id, tagId, attach = true) => {
+  debugger;
+  store.dispatch(toggleTagAction({ id, tagId, attach }));
 };
 
 const deleteNote = (id) => {
@@ -114,5 +120,6 @@ NoteService.fetchAll = fetchAll;
 NoteService.selectNote = selectNote;
 NoteService.storeNote = storeNote;
 NoteService.persistNote = persistNote;
+NoteService.toggleTag = toggleTag;
 
 export default NoteService;

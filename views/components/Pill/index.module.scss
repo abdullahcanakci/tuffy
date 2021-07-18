@@ -1,0 +1,14 @@
+.pill {
+  @apply rounded-full pl-2 flex flex-row mr-2;
+  text-shadow: 1px;
+  background-color: #228f67;
+  color: #ddd;
+  cursor: default;
+  &:not(.delete) {
+    @apply pr-2;
+  }
+
+  &:last-of-type {
+    @apply mr-0;
+  }
+}
