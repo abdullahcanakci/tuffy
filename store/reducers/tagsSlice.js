@@ -40,6 +40,11 @@ const tagsSlice = createSlice({
 });
 
 export const { setData, setState, setActive, insertTag, deleteTag } =
-  tagsSlice.actions();
+  tagsSlice.actions;
 
 export default tagsSlice.reducer;
+
+const tagsList = (state) =>
+  state.tags.tagsList.map((id) => state.tags.data[id]);
+
+export { tagsList };
