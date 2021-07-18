@@ -1,4 +1,3 @@
-import { useTags } from "hooks";
 import { useUser } from "hooks";
 import Head from "next/head";
 import { Spinner } from "views/components";

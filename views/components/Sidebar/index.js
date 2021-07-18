@@ -1,11 +1,14 @@
 import QuickLink from "./QuickLink";
-import Folder from "./Folder";
 import styles from "./index.module.scss";
 import Section from "./Section";
 import SectionTitle from "./SectionTitle";
-import { Book, Bell, CheckSquare, Edit3, Heart, X } from "react-feather";
-import { useTags } from "hooks";
+import { Book, Bell, CheckSquare, Heart, X } from "react-feather";
 import { Spinner } from "..";
+import { useSelector } from "react-redux";
+import { tagsList } from "store/reducers/tagsSlice";
+import { NetworkStates } from "store/states";
+import { NoteService } from "services";
+import { TagService } from "services";
 
 const Sidebar = () => {
   const quickLinks = [
@@ -16,10 +19,11 @@ const Sidebar = () => {
     { name: "Hightlights" },
   ];
 
-  const { tags, tagsLoading, createTag, deleteTag } = useTags();
+  const tagsStatus = useSelector((state) => state.tags.status);
+  const tags = useSelector(tagsList);
 
   const onNewEntry = (value) => {
-    createTag(value);
+    NoteService.createTag(value);
   };
 
   return (
@@ -35,7 +39,7 @@ const Sidebar = () => {
         </Section>
         <Section>
           <SectionTitle title="Tags" onNewEntry={onNewEntry} />
-          {tagsLoading ? (
+          {tagsStatus == NetworkStates.FETCH ? (
             <Spinner />
           ) : (
             <ul>
@@ -46,7 +50,7 @@ const Sidebar = () => {
                   actions={[
                     {
                       label: "Delete",
-                      onClick: () => deleteTag(link.id),
+                      onClick: () => TagService.deleteTag(link.id),
                       icon: <X />,
                     },
                   ]}
