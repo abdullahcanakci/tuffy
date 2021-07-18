@@ -7,13 +7,17 @@ const createTag = (name) => {
     id: ObjectID(),
     name: name,
   };
-  fetcher(`/api/tags/${tag.id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(tag),
-  });
+  
   return tag;
 };
+
+const persistNote = (tag) => {
+    fetcher(`/api/tags/${tag.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tag),
+      });
+}
 
 const deleteTag = (id) => {
   fetcher(`/api/tags/${id}`, {
