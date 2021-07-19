@@ -17,3 +17,45 @@ button.icon {
     }
   }
 }
+
+button.action {
+  @apply text-white flex-1;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  .block {
+    display: block;
+    width: 100%;
+  }
+}
+
+button.action {
+  &.primary {
+    @apply bg-green-500;
+
+    &:hover,
+    &:active,
+    &:focus {
+      @apply bg-green-400;
+    }
+  }
+  &.secondary {
+    @apply bg-blue-500;
+
+    &:hover,
+    &:active,
+    &:focus {
+      @apply bg-blue-400;
+    }
+  }
+  &.danger {
+    @apply bg-red-500;
+
+    &:hover,
+    &:active,
+    &:focus {
+      @apply bg-red-400;
+    }
+  }
+}

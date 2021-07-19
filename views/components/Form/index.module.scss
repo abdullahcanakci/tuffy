@@ -1,0 +1,24 @@
+.input_field {
+  display: block;
+  color: #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  span {
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+  label,
+  span,
+  input {
+    display: block;
+    width: 100%;
+  }
+  input {
+    @apply outline-none border-b-[1px];
+    background-color: transparent;
+    &:active,
+    &:focus {
+      @apply border-green-400;
+    }
+  }
+}
