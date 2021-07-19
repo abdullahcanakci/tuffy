@@ -31,10 +31,7 @@ const TagInput = () => {
     NoteService.toggleTag(note.id, tagId, true);
     inputRef?.current?.focus();
   };
-  useEffect(() => {
-    console.log("tags", tags, tags.length);
-    console.log("active", active);
-  }, [active]);
+
   useEffect(() => {
     const handleKeyPress = (event) => {
       const keyCode = event.key;

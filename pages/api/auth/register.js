@@ -20,7 +20,8 @@ handler.use(session).post(async (req, res) => {
     res.status(422).json({ errors: ["E-mail already in use"] });
     return;
   }
-  const hash = hashPassword(password);
+  const hash = await hashPassword(password);
+
   let user = await db
     .collection("users")
     .insertOne({ email: email, password: hash });

@@ -14,4 +14,10 @@ const DataStates = {
   IN_FLIGHT: "IN_FLIGHT",
 };
 
-export { NetworkStates, DataStates };
+const AuthStates = {
+  PENDING: "PENDING",
+  UNAUTH: "UNAUTH",
+  AUTH: "AUTH",
+};
+
+export { NetworkStates, DataStates, AuthStates };

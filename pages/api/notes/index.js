@@ -27,7 +27,7 @@ handler.use(session).get(async (req, res) => {
       ],
     };
   }
-  console.log(filter);
+
   const { db } = await connectToDatabase();
   const notes = await db
     .collection("notes")
