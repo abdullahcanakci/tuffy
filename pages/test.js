@@ -1,26 +1,21 @@
 import { useUser } from "hooks";
 import Head from "next/head";
-import { Pill, Spinner } from "views/components";
+import { Button, Pill, Spinner } from "views/components";
 import { Dashboard } from "views/containers";
 
 const Index = () => {
-  const { user } = useUser({ redirectTo: "/auth/login" });
-  if (!user || !user.isLoggedIn) {
-    return (
-      <div className="w-full h-screen bg-[#1f1f1f]">
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
     <div>
       <Head>
         <title>Welcome</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="h-full flex justify-center items-center">
-        <Pill label="test" onDelete />
+      <div className="h-full flex  flex-col justify-center items-center">
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <h3>h3</h3>
+        <h4>h4</h4>
+        <h5>h5</h5>
       </div>
     </div>
   );

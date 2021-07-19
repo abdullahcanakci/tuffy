@@ -1,8 +1,9 @@
+import classNames from "classnames";
 import styles from "./index.module.scss";
 
-const Card = ({ children, ...rest }) => {
+const Card = ({ children, className, ...rest }) => {
   return (
-    <div className={styles.card} {...rest}>
+    <div className={classNames(styles.card, className)} {...rest}>
       {children}
     </div>
   );
