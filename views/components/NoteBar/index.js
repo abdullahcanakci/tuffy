@@ -17,7 +17,6 @@ const NoteBar = () => {
   const fetchMore = (lastRef) => {
     if (notes.length > 0) {
       const refId = notes[notes.length - 1];
-      console.log("fetchMore", refId);
       if (lastRef != refId) {
         NoteService.fetchAll();
       }

@@ -1,27 +1,37 @@
-import { usePortal } from "hooks";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Provider } from "react-redux";
-import { SWRConfig } from "swr";
-import { fetcher } from "utils";
 import "../styles/globals.scss";
 import store from "store/index";
+import { UserService } from "services";
+import { useUser } from "hooks";
+import { Spinner } from "views/components";
+import { AuthStates } from "store/states";
 
 function MyApp({ Component, pageProps }) {
-  const { portal } = usePortal();
   return (
     <Provider store={store}>
-      <SWRConfig
-        value={{
-          fetcher: fetcher,
-          onError: (err) => {
-            console.log(err);
-          },
-        }}>
-        <div className="portal" id="portal" />
+      <div className="portal" id="portal" />
+      <Container>
         <Component {...pageProps} />
-      </SWRConfig>
+      </Container>
     </Provider>
   );
 }
+
+const Container = ({ children }) => {
+  useEffect(() => {
+    UserService.fetch();
+  }, []);
+
+  const { status } = useUser({ redirectTo: "/auth/login" });
+  if (typeof window === "undefined" || status == AuthStates.PENDING) {
+    return (
+      <div className="w-full h-screen bg-[#1f1f1f]">
+        <Spinner />
+      </div>
+    );
+  }
+  return <>{children}</>;
+};
 
 export default MyApp;

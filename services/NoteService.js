@@ -46,7 +46,6 @@ const persistNote = (note) => {
 };
 
 const toggleTag = (id, tagId, attach = true) => {
-  debugger;
   store.dispatch(toggleTagAction({ id, tagId, attach }));
 };
 

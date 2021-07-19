@@ -5,9 +5,10 @@ import { Button, Card } from "views/components";
 import { Input } from "views/components/Form";
 import { CenterLayout } from "views/containers";
 import { useEffect } from "react";
+import UserService from "services/UserService";
 
 const Login = () => {
-  const { mutateUser } = useUser({
+  useUser({
     redirectTo: "/",
     redirectIfFound: true,
   });
@@ -21,20 +22,10 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const data = {
-        email: event.currentTarget.email.value,
-        password: event.currentTarget.password.value,
-      };
-      const maybeUser = await fetcher("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      mutateUser(maybeUser);
-    } catch (error) {
-      console.error("An error occurred while logging in", error);
-    }
+    UserService.login(
+      event.currentTarget.email.value,
+      event.currentTarget.password.value
+    );
   };
 
   return (

@@ -16,7 +16,7 @@ const Editor = () => {
 
   const [title, setTitle] = useState("");
   const titleInput = useRef(null);
-  console.log("editor render");
+
   useEffect(() => {
     if (note) {
       setTitle(note.title);

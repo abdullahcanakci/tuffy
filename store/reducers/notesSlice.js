@@ -15,8 +15,6 @@ const notesSlice = createSlice({
   initialState,
   reducers: {
     setData: (state, action) => {
-      console.log("setData", action.payload);
-
       const data = action.payload.data;
       state.next = action.payload.meta.next;
       data.forEach((element) => {
@@ -58,7 +56,7 @@ const notesSlice = createSlice({
     },
     toggleTag: (state, action) => {
       const { attach, id, tagId } = action.payload;
-      console.log("toggleTag", { attach, id, tagId });
+
       if (!Array.isArray(state.data[id].tags)) {
         state.data[id].tags = [];
       }

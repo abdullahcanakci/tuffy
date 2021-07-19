@@ -22,7 +22,6 @@ const InfiniteScroller = ({ loadingView, noneView, fetchMore }) => {
 
   const handleIntersection = (entities) => {
     const target = entities[0];
-    console.log("handle intersection");
     if (target && target.isIntersecting && networkStatus) {
       const refId = fetchMore(notified);
       setNotified(refId);

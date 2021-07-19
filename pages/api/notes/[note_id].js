@@ -46,7 +46,7 @@ handler.use(session).post(async (req, res) => {
     }, // data
     { upsert: true, returnOriginal: true } // options
   );
-  console.log("test", note._id);
+
   res.json({ id: note_id, title, body, abstract });
 });
 
