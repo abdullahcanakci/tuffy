@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import NoteBar from "views/components/NoteBar";
+import { useEffect } from "react";
+import NoteList from "views/components/NoteList";
 import Sidebar from "views/components/Sidebar";
-import Editor from "views/components/Editor";
+import { Editor } from "views/components/Editor";
 import { NoteService } from "services";
 import { TagService } from "services";
 
 const Dashboard = () => {
   useEffect(() => {
-    NoteService.fetchAll(true);
-    TagService.fetchTags();
+    NoteService.fetch(true);
+    TagService.fetch();
   }, []);
 
   return (
     <div className="flex flex-row h-screen overflow-hidden">
       <Sidebar />
-      <NoteBar />
+      <NoteList />
       <Editor />
     </div>
   );

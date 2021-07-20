@@ -12,7 +12,7 @@ const tagsSlice = createSlice({
   name: "tags",
   initialState,
   reducers: {
-    setData: (state, action) => {
+    PUT_DATA: (state, action) => {
       const data = action.payload.data;
       data.forEach((element) => {
         state.data[element.id] = element;
@@ -20,24 +20,26 @@ const tagsSlice = createSlice({
       });
       state.status = NetworkStates.COMPLETE;
     },
-    setActive: (state, action) => {
+    SET_ACTIVE: (state, action) => {
       state.active = action.payload.id;
     },
-    setState: (state, action) => {
+    SET_STATE: (state, action) => {
       state.status = action.payload.status;
     },
-    insertTag: (state, action) => {
-      state.data[action.payload.tag.id] = action.payload.tag;
-      state.tagsList.unshift(action.payload.tag.id);
+    INSERT: (state, action) => {
+      const { tag } = action.payload;
+      state.data[tag.id] = tag;
+      state.tagsList.unshift(tag.id);
     },
-    deleteTag: (state, action) => {
-      delete state.data[action.payload.tag.id];
-      state.tagsList = state.tagsList.filter((x) => action.payload.tag.id != x);
+    DELETE: (state, action) => {
+      const { tag } = action.payload;
+      delete state.data[tag.id];
+      state.tagsList = state.tagsList.filter((x) => tag.id != x);
     },
   },
 });
 
-export const { setData, setState, setActive, insertTag, deleteTag } =
+export const { PUT_DATA, SET_STATE, SET_ACTIVE, INSERT, DELETE } =
   tagsSlice.actions;
 
 export default tagsSlice.reducer;

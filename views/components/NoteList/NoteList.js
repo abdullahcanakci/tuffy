@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 import Note from "./Note";
 import InfiniteScroller from "./InfiniteScroller";
 
-const NoteBar = () => {
+const NoteList = () => {
   const notes = useSelector((state) => state.notes.notesList);
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
@@ -18,7 +18,7 @@ const NoteBar = () => {
     if (notes.length > 0) {
       const refId = notes[notes.length - 1];
       if (lastRef != refId) {
-        NoteService.fetchAll();
+        NoteService.fetch();
       }
       return refId;
     }
@@ -63,7 +63,7 @@ const NoteBar = () => {
   };
 
   const createNote = () => {
-    NoteService.createNote("");
+    NoteService.create("");
   };
 
   return (
@@ -116,4 +116,4 @@ const NoteBar = () => {
   );
 };
 
-export default NoteBar;
+export default NoteList;

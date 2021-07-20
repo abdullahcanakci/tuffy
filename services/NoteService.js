@@ -1,57 +1,55 @@
-import { ObjectId } from "bson";
+import { ObjectID } from "bson";
 import { formatISO } from "date-fns";
 import store from "store";
 import {
-  deleteData,
-  insertNote,
-  updateEntry,
-  setActive,
-  setState,
-  setData,
-  toggleTag as toggleTagAction,
+  INSERT,
+  UPDATE,
+  SET_STATE,
+  PUT_DATA,
+  SET_ACTIVE,
+  DELETE,
+  TOGGLE_TAG,
 } from "store/reducers/notesSlice";
-
 import { NetworkStates, DataStates } from "store/states";
-
 const { fetcher } = require("utils");
 
-const createNote = (title) => {
+const create = (title) => {
   const note = {
-    id: ObjectId().toString(),
+    id: ObjectID().toString(),
     title: "",
     created_at: formatISO(new Date()),
     updated_at: formatISO(new Date()),
     new_note: true,
   };
 
-  store.dispatch(insertNote(note));
-  selectNote(note);
+  store.dispatch(INSERT({ note }));
+  select(note);
 
   return note;
 };
 
-const storeNote = (note) => {
-  store.dispatch(updateEntry({ ...note, status: DataStates.DIRTY }));
+const update = (note) => {
+  store.dispatch(UPDATE({ note: { ...note, status: DataStates.DIRTY } }));
 };
 
-const persistNote = (note) => {
-  store.dispatch(updateEntry({ ...note, status: DataStates.IN_FLIGHT }));
+const persist = (note) => {
+  store.dispatch(UPDATE({ note: { ...note, status: DataStates.IN_FLIGHT } }));
   fetcher(`/api/notes/${note.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
   }).then((data) => {
-    store.dispatch(updateEntry({ ...note, status: DataStates.PERSISTED }));
+    store.dispatch(UPDATE({ note: { ...note, status: DataStates.PERSISTED } }));
   });
 };
 
 const toggleTag = (id, tagId, attach = true) => {
-  store.dispatch(toggleTagAction({ id, tagId, attach }));
+  store.dispatch(TOGGLE_TAG({ id, tagId, attach }));
 };
 
 const deleteNote = (id) => {
   const fn = (dispatch, getState) => {
-    dispatch(deleteData(id));
+    dispatch(DELETE({ id }));
     return fetcher(`/api/notes/${id}`, {
       method: "DELETE",
     });
@@ -59,7 +57,7 @@ const deleteNote = (id) => {
   store.dispatch(fn);
 };
 
-const selectNote = (note) => {
+const select = (note) => {
   const fn = (dispatch, getState) => {
     const state = getState();
     if (state.notes.active) {
@@ -71,11 +69,11 @@ const selectNote = (note) => {
         return;
       }
       if (note.status == DataStates.DIRTY) {
-        persistNote(note);
+        persist(note);
       }
     }
     dispatch(
-      setActive({
+      SET_ACTIVE({
         id: note.id,
         status: note.new_note
           ? NetworkStates.COMPLETE
@@ -86,7 +84,7 @@ const selectNote = (note) => {
     if (!note.new_note) {
       fetcher(`/api/notes/${note.id}`, { method: "GET" }).then((data) => {
         store.dispatch(
-          setActive({ id: note.id, status: NetworkStates.COMPLETE, data })
+          SET_ACTIVE({ id: note.id, status: NetworkStates.COMPLETE, data })
         );
       });
     }
@@ -94,31 +92,32 @@ const selectNote = (note) => {
   store.dispatch(fn);
 };
 
-const fetchAll = (refetch = false) => {
+const fetch = (refetch = false) => {
   const fn = (dispatch, getState) => {
     const state = getState();
     if (state.notes.next == null && refetch == false) {
       return;
     }
     dispatch(
-      setState(
+      SET_STATE(
         state.notes.next ? NetworkStates.FETCH_MORE : NetworkStates.FETCH
       )
     );
     fetcher("/api/notes?" + state.notes.next).then((data) => {
-      dispatch(setData(data));
+      dispatch(PUT_DATA(data));
     });
   };
   store.dispatch(fn);
 };
 
-const NoteService = {};
-NoteService.createNote = createNote;
-NoteService.deleteNote = deleteNote;
-NoteService.fetchAll = fetchAll;
-NoteService.selectNote = selectNote;
-NoteService.storeNote = storeNote;
-NoteService.persistNote = persistNote;
-NoteService.toggleTag = toggleTag;
+const NoteService = {
+  create,
+  delete: deleteNote,
+  fetch,
+  persist,
+  select,
+  toggleTag,
+  update,
+};
 
 export default NoteService;

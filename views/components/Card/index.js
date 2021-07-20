@@ -1,12 +1,3 @@
-import classNames from "classnames";
-import styles from "./index.module.scss";
+import Card from "./Card";
 
-const Card = ({ children, className, ...rest }) => {
-  return (
-    <div className={classNames(styles.card, className)} {...rest}>
-      {children}
-    </div>
-  );
-};
-
-export default Card;
+export { Card };

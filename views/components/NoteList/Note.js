@@ -19,7 +19,7 @@ const Note = ({ id }) => {
   const { container, menu } = Menu.useMenu();
 
   const selectNote = () => {
-    NoteService.selectNote(note);
+    NoteService.select(note);
   };
   const renderStatus = () => {
     if (!note.status) return <></>;
@@ -60,7 +60,7 @@ const Note = ({ id }) => {
         <Menu.Item
           label="Delete"
           icon={<X />}
-          onClick={() => NoteService.deleteNote(note.id)}
+          onClick={() => NoteService.delete(note.id)}
         />
       </Menu>
     </div>

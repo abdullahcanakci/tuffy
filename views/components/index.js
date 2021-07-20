@@ -1,8 +1,9 @@
 import Menu from "./Menu";
-import Spinner from "./Spinner";
+import Spinner from "./Spinner/Spinner";
 import Portal from "./Portal";
-import Card from "./Card";
+import Card from "./Card/Card";
 import Pill from "./Pill";
-import Button from "./Button/Button";
 
-export { Card, Menu, Pill, Portal, Spinner, Button };
+export { Card, Menu, Pill, Portal, Spinner };
+
+export * from "./Button";

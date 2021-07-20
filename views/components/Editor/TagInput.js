@@ -22,7 +22,7 @@ const TagInput = () => {
     if (active !== null) {
       tagId = tags[active];
     } else if (active === null && entry != "") {
-      const tag = TagService.createTag(entry);
+      const tag = TagService.create(entry);
       tagId = tag.id;
     }
 

@@ -14,52 +14,47 @@ const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    setData: (state, action) => {
-      const data = action.payload.data;
-      state.next = action.payload.meta.next;
+    RESET_STATE: (state, action) => {
+      state = initialState;
+    },
+    PUT_DATA: (state, action) => {
+      const { data, meta } = action.payload;
+      state.next = meta.next;
       data.forEach((element) => {
         state.data[element.id] = element;
         state.notesList.push(element.id);
       });
       state.status = NetworkStates.COMPLETE;
     },
-    setActive: (state, action) => {
-      state.status = action.payload.status;
-      state.active = action.payload.id;
-      if (
-        action.payload.status == NetworkStates.COMPLETE &&
-        !action.payload.data.new_note
-      ) {
-        state.data[action.payload.id] = action.payload.data;
+    SET_ACTIVE: (state, action) => {
+      const { status, id, data } = action.payload;
+      state.status = status;
+      state.active = id;
+      if (status == NetworkStates.COMPLETE && !data.new_note) {
+        state.data[id] = data;
       }
     },
-    setState: (state, action) => {
+    SET_STATE: (state, action) => {
       state.status = action.payload;
     },
-    insertNote: (state, action) => {
-      state.data[`${action.payload.id}`] = action.payload;
-      state.notesList.unshift(action.payload.id);
-      //state.active = action.payload.id;
+    INSERT: (state, action) => {
+      const { note } = action.payload;
+      state.data[`${note.id}`] = note;
+      state.notesList.unshift(note.id);
     },
-    deleteData: (state, action) => {
-      state.notesList = state.notesList.filter((x) => x != action.payload);
-      delete state.data[action.payload];
+    DELETE: (state, action) => {
+      const { id } = action.payload;
+      state.notesList = state.notesList.filter((x) => x != id);
+      delete state.data[id];
     },
-    updateEntry: (state, action) => {
-      if (
-        action.payload.status == DataStates.DIRTY &&
-        !state.dirtyList.includes(action.payload.id)
-      ) {
-        state.dirtyList.push(action.payload.id);
-      }
-      state.data[action.payload.id] = action.payload;
+    UPDATE: (state, action) => {
+      const { note } = action.payload;
+      state.data[note.id] = note;
     },
-    toggleTag: (state, action) => {
+    TOGGLE_TAG: (state, action) => {
       const { attach, id, tagId } = action.payload;
+      if (!Array.isArray(state.data[id].tags)) state.data[id].tags = [];
 
-      if (!Array.isArray(state.data[id].tags)) {
-        state.data[id].tags = [];
-      }
       if (attach && !state.data[id].tags.includes(tagId)) {
         state.data[id].tags.push(tagId);
       } else {
@@ -67,8 +62,8 @@ const notesSlice = createSlice({
       }
       state.data[id].status = DataStates.DIRTY;
     },
-    detachTag: (state, action) => {
-      const id = action.payload;
+    DETACH_TAG: (state, action) => {
+      const { id } = action.payload;
 
       Object.keys(state.data).map((key) => {
         if (
@@ -84,15 +79,15 @@ const notesSlice = createSlice({
 });
 
 export const {
-  updateData,
-  setState,
-  deleteData,
-  insertNote,
-  updateEntry,
-  setActive,
-  setData,
-  toggleTag,
-  detachTag,
+  RESET_STATE,
+  PUT_DATA,
+  SET_ACTIVE,
+  SET_STATE,
+  INSERT,
+  DELETE,
+  UPDATE,
+  TOGGLE_TAG,
+  DETACH_TAG,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;
@@ -103,7 +98,4 @@ const notesList = (state) => {
 const activeNote = (state) =>
   state.notes.active ? state.notes.data[state.notes.active] : null;
 
-const dirtyNotes = (state) =>
-  state.notes.dirtyList.map((id) => state.notes.data[id]);
-
-export { notesList, activeNote, dirtyNotes };
+export { notesList, activeNote };
