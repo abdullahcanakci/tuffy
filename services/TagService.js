@@ -1,4 +1,4 @@
-import { ObjectID } from "bson";
+import { ObjectId } from "bson";
 import store from "store";
 import {
   insertTag,
@@ -13,7 +13,7 @@ const { fetcher } = require("utils");
 
 const createTag = (name) => {
   const tag = {
-    id: ObjectID().toString(),
+    id: ObjectId().toString(),
     name: name,
   };
   store.dispatch(insertTag({ tag }));

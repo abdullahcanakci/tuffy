@@ -1,7 +1,7 @@
 import { session } from "utils";
 import nextConnect from "next-connect";
 import connectToDatabase from "utils/connectToDatabase";
-import { ObjectID } from "bson";
+import { ObjectId } from "bson";
 const handler = nextConnect();
 
 handler.use(session).get(async (req, res) => {
@@ -13,19 +13,17 @@ handler.use(session).get(async (req, res) => {
 
   const { id, updated_at } = req.query;
 
-  let filter = {};
+  let filter = { user_id: ObjectId(user.id) };
   if (id && updated_at) {
-    filter = {
-      $or: [
-        {
-          updated_at: { $lt: updated_at },
-        },
-        {
-          updated_at,
-          _id: { $lt: ObjectID(id) },
-        },
-      ],
-    };
+    filter["$or"] = [
+      {
+        updated_at: { $lt: updated_at },
+      },
+      {
+        updated_at,
+        _id: { $lt: ObjectId(id) },
+      },
+    ];
   }
 
   const { db } = await connectToDatabase();

@@ -30,7 +30,11 @@ handler.use(session).post(async (req, res) => {
   }
 
   try {
-    const userData = { isLoggedIn: true, email: user.email };
+    const userData = {
+      isLoggedIn: true,
+      email: user.email,
+      id: user._id.toString(),
+    };
     req.session.set("user", userData);
     await req.session.save();
     res.json(userData);

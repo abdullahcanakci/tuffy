@@ -1,4 +1,4 @@
-import { ObjectID } from "bson";
+import { ObjectId } from "bson";
 import { formatISO } from "date-fns";
 import store from "store";
 import {
@@ -17,7 +17,7 @@ const { fetcher } = require("utils");
 
 const createNote = (title) => {
   const note = {
-    id: ObjectID().toString(),
+    id: ObjectId().toString(),
     title: "",
     created_at: formatISO(new Date()),
     updated_at: formatISO(new Date()),

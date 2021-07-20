@@ -48,9 +48,9 @@ const Note = ({ id }) => {
       </div>
       <div className={styles.detail}>
         <div className="flex flex-row">
-          <h3 className={classNames(styles.title, "flex-1")}>
+          <h4 className={classNames(styles.title, "flex-1")}>
             {note.title} {note.new_note && !note.title && <>- New Note -</>}
-          </h3>
+          </h4>
           {renderStatus()}
         </div>
         <p className={styles.abstract}>{note.abstract}</p>

@@ -1,8 +1,7 @@
 import { session } from "utils";
 import nextConnect from "next-connect";
-import { hashPassword } from "utils/password";
 import connectToDatabase from "utils/connectToDatabase";
-import { ObjectID } from "mongodb";
+import { ObjectId } from "bson";
 
 const handler = nextConnect();
 
@@ -16,7 +15,7 @@ handler.use(session).get(async (req, res) => {
   const { db } = await connectToDatabase();
   const tags = await db
     .collection("tags")
-    .find({}, { _id: 1, name: 1 })
+    .find({ user_id: ObjectId(user.id) }, { _id: 1, name: 1 })
     .toArray();
 
   res.json(tags.map((t) => ({ id: t._id.toString(), name: t.name })));
