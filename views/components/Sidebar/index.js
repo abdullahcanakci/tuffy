@@ -22,7 +22,7 @@ const Sidebar = () => {
   const tags = useSelector(tagsList);
 
   const onNewEntry = (value) => {
-    TagService.createTag(value);
+    TagService.create(value);
   };
 
   return (
@@ -49,7 +49,7 @@ const Sidebar = () => {
                   actions={[
                     {
                       label: "Delete",
-                      onClick: () => TagService.deleteTag(link.id),
+                      onClick: () => TagService.delete(link.id),
                       icon: <X />,
                     },
                   ]}

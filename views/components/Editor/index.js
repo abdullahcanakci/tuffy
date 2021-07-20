@@ -35,7 +35,7 @@ const Editor = () => {
     if (isDirty) {
       const handle = setTimeout(() => {
         setIsDirty(false);
-        NoteService.storeNote({ ...note, title: title });
+        NoteService.update({ ...note, title: title });
       }, 500);
       return () => clearTimeout(handle);
     }
@@ -44,7 +44,7 @@ const Editor = () => {
   useEffect(() => {
     if (note?.status == DataStates.DIRTY) {
       const handle = setTimeout(() => {
-        NoteService.persistNote(note);
+        NoteService.persist(note);
       }, 2000);
       return () => clearTimeout(handle);
     }

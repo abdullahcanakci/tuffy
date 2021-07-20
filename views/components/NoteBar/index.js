@@ -18,7 +18,7 @@ const NoteBar = () => {
     if (notes.length > 0) {
       const refId = notes[notes.length - 1];
       if (lastRef != refId) {
-        NoteService.fetchAll();
+        NoteService.fetch();
       }
       return refId;
     }
@@ -63,7 +63,7 @@ const NoteBar = () => {
   };
 
   const createNote = () => {
-    NoteService.createNote("");
+    NoteService.create("");
   };
 
   return (

@@ -7,8 +7,8 @@ import { TagService } from "services";
 
 const Dashboard = () => {
   useEffect(() => {
-    NoteService.fetchAll(true);
-    TagService.fetchTags();
+    NoteService.fetch(true);
+    TagService.fetch();
   }, []);
 
   return (

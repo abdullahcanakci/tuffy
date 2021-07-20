@@ -13,7 +13,7 @@ import {
 import { NetworkStates, DataStates } from "store/states";
 const { fetcher } = require("utils");
 
-const createNote = (title) => {
+const create = (title) => {
   const note = {
     id: ObjectID().toString(),
     title: "",
@@ -23,16 +23,16 @@ const createNote = (title) => {
   };
 
   store.dispatch(INSERT({ note }));
-  selectNote(note);
+  select(note);
 
   return note;
 };
 
-const storeNote = (note) => {
+const update = (note) => {
   store.dispatch(UPDATE({ note: { ...note, status: DataStates.DIRTY } }));
 };
 
-const persistNote = (note) => {
+const persist = (note) => {
   store.dispatch(UPDATE({ note: { ...note, status: DataStates.IN_FLIGHT } }));
   fetcher(`/api/notes/${note.id}`, {
     method: "POST",
@@ -57,7 +57,7 @@ const deleteNote = (id) => {
   store.dispatch(fn);
 };
 
-const selectNote = (note) => {
+const select = (note) => {
   const fn = (dispatch, getState) => {
     const state = getState();
     if (state.notes.active) {
@@ -69,7 +69,7 @@ const selectNote = (note) => {
         return;
       }
       if (note.status == DataStates.DIRTY) {
-        persistNote(note);
+        persist(note);
       }
     }
     dispatch(
@@ -92,7 +92,7 @@ const selectNote = (note) => {
   store.dispatch(fn);
 };
 
-const fetchAll = (refetch = false) => {
+const fetch = (refetch = false) => {
   const fn = (dispatch, getState) => {
     const state = getState();
     if (state.notes.next == null && refetch == false) {
@@ -110,13 +110,14 @@ const fetchAll = (refetch = false) => {
   store.dispatch(fn);
 };
 
-const NoteService = {};
-NoteService.createNote = createNote;
-NoteService.deleteNote = deleteNote;
-NoteService.fetchAll = fetchAll;
-NoteService.selectNote = selectNote;
-NoteService.storeNote = storeNote;
-NoteService.persistNote = persistNote;
-NoteService.toggleTag = toggleTag;
+const NoteService = {
+  create,
+  delete: deleteNote,
+  fetch,
+  persist,
+  select,
+  toggleTag,
+  update,
+};
 
 export default NoteService;

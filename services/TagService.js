@@ -6,18 +6,18 @@ import { NetworkStates } from "store/states";
 
 const { fetcher } = require("utils");
 
-const createTag = (name) => {
+const create = (name) => {
   const tag = {
     id: ObjectID().toString(),
     name: name,
   };
   store.dispatch(INSERT({ tag }));
-  persistTag(tag);
+  persist(tag);
 
   return tag;
 };
 
-const persistTag = (tag) => {
+const persist = (tag) => {
   fetcher(`/api/tags/${tag.id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -33,11 +33,11 @@ const deleteTag = (id) => {
   });
 };
 
-const selectTag = (id) => {
+const select = (id) => {
   store.dispatch(selectTag(id));
 };
 
-const fetchTags = () => {
+const fetch = () => {
   const fn = (dispatch, getState) => {
     dispatch(SET_STATE(NetworkStates.FETCH));
     fetcher("/api/tags").then((data) => {
@@ -49,10 +49,6 @@ const fetchTags = () => {
   store.dispatch(fn);
 };
 
-const TagService = {};
-TagService.createTag = createTag;
-TagService.deleteTag = deleteTag;
-TagService.selectTag = selectTag;
-TagService.fetchTags = fetchTags;
+const TagService = { create, persist, delete: deleteTag, select, fetch };
 
 export default TagService;
