@@ -97,3 +97,20 @@ h4 {
 h5 {
   font-size: 1.2rem;
 }
+
+.quill_container {
+  padding-top: 1.5rem;
+  overflow-y: auto;
+}
+
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+.ql-toolbar.ql-snow > * {
+  color: #fff;
+}
+
+.ql-fill {
+  color: #fff !important;
+}
