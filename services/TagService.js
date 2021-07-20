@@ -1,22 +1,17 @@
-import { ObjectId } from "bson";
+import { ObjectID } from "bson";
 import store from "store";
-import {
-  insertTag,
-  setData,
-  setState,
-  deleteTag as deleteTagAction,
-} from "store/reducers/tagsSlice";
-import { detachTag } from "store/reducers/notesSlice";
+import { INSERT, PUT_DATA, SET_STATE, DELETE } from "store/reducers/tagsSlice";
+import { DETACH_TAG } from "store/reducers/notesSlice";
 import { NetworkStates } from "store/states";
 
 const { fetcher } = require("utils");
 
 const createTag = (name) => {
   const tag = {
-    id: ObjectId().toString(),
+    id: ObjectID().toString(),
     name: name,
   };
-  store.dispatch(insertTag({ tag }));
+  store.dispatch(INSERT({ tag }));
   persistTag(tag);
 
   return tag;
@@ -31,8 +26,8 @@ const persistTag = (tag) => {
 };
 
 const deleteTag = (id) => {
-  store.dispatch(deleteTagAction({ tag: { id } }));
-  store.dispatch(detachTag(id));
+  store.dispatch(DELETE({ tag: { id } }));
+  store.dispatch(DETACH_TAG({ id }));
   fetcher(`/api/tags/${id}`, {
     method: "DELETE",
   });
@@ -44,10 +39,10 @@ const selectTag = (id) => {
 
 const fetchTags = () => {
   const fn = (dispatch, getState) => {
-    dispatch(setState(NetworkStates.FETCH));
+    dispatch(SET_STATE(NetworkStates.FETCH));
     fetcher("/api/tags").then((data) => {
-      dispatch(setData({ data }));
-      dispatch(setState(NetworkStates.COMPLETE));
+      dispatch(PUT_DATA({ data }));
+      dispatch(SET_STATE(NetworkStates.COMPLETE));
     });
   };
 
