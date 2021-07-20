@@ -9,7 +9,7 @@ import styles from "./index.module.scss";
 import Note from "./Note";
 import InfiniteScroller from "./InfiniteScroller";
 
-const NoteBar = () => {
+const NoteList = () => {
   const notes = useSelector((state) => state.notes.notesList);
   const status = useSelector((state) => state.notes.status);
   const [search, setSearch] = useState("");
@@ -116,4 +116,4 @@ const NoteBar = () => {
   );
 };
 
-export default NoteBar;
+export default NoteList;
