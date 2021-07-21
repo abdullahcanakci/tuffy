@@ -1,8 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,200;1,800&display=swap");
+@import "./colors.scss";
+@import "./components/main.scss";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#__next {
+  @apply flex flex-col;
+}
 
 @keyframes loader-rotate {
   0% {
@@ -96,4 +110,11 @@ h4 {
 
 h5 {
   font-size: 1.2rem;
+}
+
+.ProseMirror {
+  background-color: $dark-two;
+  border-radius: 5px;
+  padding: 40px 20px;
+  height: 100%;
 }

@@ -6,7 +6,8 @@
     "paths": {
       "utils": ["src/utils/index"],
       "hooks": ["src/hooks/index"],
-      "services": ["src/services/index"]
+      "services": ["src/services/index"],
+      "styles": ["styles"]
     }
   }
 }

@@ -77,7 +77,9 @@ const Menu = ({
 
 const Item = ({ label, onClick, icon }) => {
   return (
-    <div onClick={onClick} className={classNames(styles.item, "flex flex-row")}>
+    <div
+      onClick={() => onClick()}
+      className={classNames(styles.item, "flex flex-row")}>
       <div className={styles.icon}>{icon}</div>
       <span className="flex-1 whitespace-nowrap">{label}</span>
     </div>

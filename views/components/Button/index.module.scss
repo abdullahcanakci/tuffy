@@ -2,7 +2,8 @@ button.icon {
   @apply text-white;
   &:hover,
   &:active,
-  &:focus {
+  &:focus,
+  &.active {
     @apply text-green-400;
   }
 

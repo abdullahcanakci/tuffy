@@ -1,0 +1,19 @@
+.icon-button {
+  color: $text-color;
+  height: 2rem;
+  width: 2rem;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &.active {
+    color: #34d399;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    padding: 0.1rem;
+    margin: auto;
+  }
+}
