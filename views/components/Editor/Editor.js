@@ -8,6 +8,7 @@ import { X } from "react-feather";
 import { NoteService } from "services";
 import { activeNote } from "store/reducers/notesSlice";
 import { DataStates } from "store/states";
+import Tiptap from "../Tiptap";
 
 const Editor = () => {
   const status = useSelector((state) => state.notes.status);
@@ -71,6 +72,7 @@ const Editor = () => {
             </div>
           </div>
         </div>
+        <Tiptap className="px-4 py-2" />
       </div>
     );
   };

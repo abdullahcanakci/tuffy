@@ -11,7 +11,7 @@ import {
   TOGGLE_TAG,
 } from "store/reducers/notesSlice";
 import { NetworkStates, DataStates } from "store/states";
-const { fetcher } = require("utils");
+import { fetcher } from "utils";
 
 const create = (title) => {
   const note = {

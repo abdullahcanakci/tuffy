@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-
-const { Bold, Italic, Terminal, List } = require("react-feather");
-const { Icon, Button, Dropdown, IconButton } = require("..");
-
+import { Dropdown, IconButton } from "..";
 import {
   FaUndo,
   FaRedo,
@@ -11,7 +8,10 @@ import {
   FaBold,
   FaItalic,
   FaStrikethrough,
+  FaCode,
+  FaImage,
 } from "react-icons/fa";
+import { DropdownItem } from "../Button/Dropdown";
 
 const TiptapMenu = ({ editor }) => {
   if (!editor) return null;
@@ -20,32 +20,6 @@ const TiptapMenu = ({ editor }) => {
     type: "heading",
     level: 1,
   });
-
-  const textStates = [
-    {
-      label: "Heading 1",
-      type: "heading",
-      level: 1,
-      onClick: (e) => setTextState(e),
-    },
-    {
-      label: "Heading 2",
-      type: "heading",
-      level: 2,
-      onClick: (e) => setTextState(e),
-    },
-    {
-      label: "Heading 3",
-      type: "heading",
-      level: 3,
-      onClick: (e) => setTextState(e),
-    },
-    {
-      label: "Normal",
-      type: "paragraph",
-      onClick: (e) => setTextState(e),
-    },
-  ];
 
   useEffect(() => {
     if (!editor) return;
@@ -57,8 +31,35 @@ const TiptapMenu = ({ editor }) => {
   }, [textState]);
 
   return (
-    <div className="flex flex-row gap-1 items-center px-2 py-2">
-      <Dropdown options={textStates} echoOption />
+    <div className="flex flex-row gap-1 items-center py-2">
+      <Dropdown echoOption>
+        <DropdownItem
+          label="Heading 1"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+          active={editor.isActive("heading", { level: 2 })}
+        />
+        <DropdownItem
+          label="Heading 2"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+          active={editor.isActive("heading", { level: 1 })}
+        />
+        <DropdownItem
+          label="Heading 3"
+          onClick={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
+          active={editor.isActive("heading", { level: 3 })}
+        />
+        <DropdownItem
+          label="Normal"
+          onClick={() => editor.chain().focus().setParagraph().run()}
+          active={editor.isActive("paragraph")}
+        />
+      </Dropdown>
 
       <div className="flex flex-row items-center button-group">
         <IconButton
@@ -88,6 +89,18 @@ const TiptapMenu = ({ editor }) => {
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           active={editor.isActive("orderedList")}>
           <FaListOl />
+        </IconButton>
+      </div>
+
+      <div className="flex flex-row items-center button-group">
+        <IconButton
+          onClick={() => editor.chain().focus().toggleCode().run()}
+          active={editor.isActive("code")}>
+          <FaCode />
+        </IconButton>
+        <IconButton
+          onClick={() => console.log("Image upload not yet implemented!")}>
+          <FaImage />
         </IconButton>
       </div>
 

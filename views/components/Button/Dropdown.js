@@ -1,25 +1,20 @@
-const { useState, useRef, useEffect } = require("react");
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import classNames from "classnames";
 import { Card, Menu, Portal } from "..";
 import styles from "./dropdown.module.scss";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
-const Dropdown = ({ options, echoOption = false, label: passedLabel }) => {
+const Dropdown = ({ children }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [label, setLabel] = useState(passedLabel);
   const buttonRef = useRef(null);
 
-  const handleOptionClick = (option) => {
-    if (echoOption) {
-      setLabel(option.label);
-    }
-    if (typeof option.onClick === "function") {
-      option.onClick(option);
-    }
-  };
-  useEffect(() => {
-    if (!passedLabel && options?.length > 0) {
-      handleOptionClick(options[0]);
-    }
-  }, []);
+  const label = useMemo(() => {
+    let l = null;
+    React.Children.map(children, (child) => {
+      if (child.props.active) l = child.props.label;
+    });
+    return l;
+  }, [children]);
 
   const renderDropdown = () => {
     if (!showDropdown) return <></>;
@@ -35,30 +30,42 @@ const Dropdown = ({ options, echoOption = false, label: passedLabel }) => {
               buttonRef.current.getBoundingClientRect().left
             }px`,
           }}>
-          {options?.map((option, index) => (
-            <Menu.Item
-              key={option.label}
-              label={option.label}
-              onClick={() => handleOptionClick(option)}
-            />
-          ))}
+          {children}
         </Card>
       </Portal>
     );
   };
 
   return (
-    <>
+    <div className="dropdown-container">
       <button
-        className={styles.dropdown}
+        className="dropdown"
         icon="heart"
         onClick={() => setShowDropdown((e) => !e)}
         ref={buttonRef}>
         {label}
+        <div className="icon">
+          {showDropdown ? <FaCaretUp /> : <FaCaretDown />}
+        </div>
       </button>
       {renderDropdown()}
-    </>
+    </div>
   );
 };
+
+const Item = ({ label, onClick, icon, active }) => {
+  return (
+    <div className="dropdown-container">
+      <div
+        onClick={() => onClick()}
+        className={classNames("item flex flex-row", { active })}>
+        <div className={styles.icon}>{icon}</div>
+        <span className="flex-1 whitespace-nowrap">{label}</span>
+      </div>
+    </div>
+  );
+};
+
+export { Item as DropdownItem };
 
 export default Dropdown;
