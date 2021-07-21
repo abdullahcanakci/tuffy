@@ -1,13 +1,13 @@
+import classNames from "classnames";
 import { useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
-const Quill = () => {
+const Quill = ({ className }) => {
   const [value, setValue] = useState("");
 
   return (
-    <div className="quill_container flex-1">
-      <ReactQuill value={value} onChange={setValue} />
+    <div className={classNames("quill_container flex-1 w-full", className)}>
+      <ReactQuill theme="snow" value={value} onChange={setValue} />
     </div>
   );
 };

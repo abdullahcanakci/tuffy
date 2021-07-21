@@ -73,7 +73,7 @@ const Editor = () => {
             </div>
           </div>
         </div>
-        <Quill />
+        <Quill className="px-4" />
       </>
     );
   };

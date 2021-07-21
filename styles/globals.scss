@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,200;1,800&display=swap");
-
+@import "./colors.scss";
+@import "./quill.scss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -104,13 +105,23 @@ h5 {
 }
 
 .ql-container.ql-snow {
+  flex-grow: 1;
   border: none !important;
+  height: 100%;
+}
+.quill,
+.ql-editor {
+  height: 100% !important;
 }
 
-.ql-toolbar.ql-snow > * {
-  color: #fff;
+html,
+body,
+#__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.ql-fill {
-  color: #fff !important;
+#__next {
+  @apply flex flex-col;
 }
