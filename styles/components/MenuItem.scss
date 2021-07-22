@@ -1,0 +1,31 @@
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  color: #ddd;
+  padding: 0.25rem;
+  cursor: pointer;
+
+  &:hover,
+  &.active {
+    color: #34d399;
+    background-color: #3b3c3c;
+  }
+
+  span {
+    vertical-align: middle;
+    width: 1.5rem;
+    height: 1.5rem;
+    svg {
+      display: block;
+      height: 100%;
+      padding: 0.15rem;
+      margin: 0 auto;
+    }
+  }
+  label {
+    flex-grow: 1;
+    white-space: nowrap;
+    padding-left: 0.4rem;
+    padding-right: 1.5rem;
+  }
+}

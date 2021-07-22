@@ -29,7 +29,7 @@ handler.use(session).get(async (req, res) => {
   const { db } = await connectToDatabase();
   const notes = await db
     .collection("notes")
-    .find(filter, { _id: 1, title: 1, updated_at: 1 })
+    .find(filter, { _id: 1, title: 1, updated_at: 1, favorite: 1 })
     .sort({ updated_at: -1, _id: 1 })
     .limit(10)
     .toArray();

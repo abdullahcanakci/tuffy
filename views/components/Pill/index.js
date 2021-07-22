@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { X } from "react-feather";
-import Icon from "../Button/Icon";
+import { IconButton } from "..";
 import styles from "./index.module.scss";
 
 const Pill = ({ label, onClick, onDelete }) => {
@@ -13,7 +13,12 @@ const Pill = ({ label, onClick, onDelete }) => {
       onClick={handleClick}>
       {label}
       {onDelete && (
-        <Icon className="ml-1" icon={<X />} hover onClick={() => onDelete()} />
+        <IconButton
+          className="ml-1"
+          icon={<X />}
+          hover
+          onClick={() => onDelete()}
+        />
       )}
     </div>
   );

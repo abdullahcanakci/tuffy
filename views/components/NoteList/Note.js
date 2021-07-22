@@ -2,10 +2,11 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import { useMemo } from "react";
 import { AlertCircle, Circle, Loader, X } from "react-feather";
+import { FaHeart, FaRegHeart, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { NoteService } from "services";
 import { DataStates } from "store/states";
-import { Menu } from "..";
+import { ContextMenu, MenuItem } from "../Menu";
 import styles from "./index.module.scss";
 
 const Note = ({ id }) => {
@@ -16,7 +17,6 @@ const Note = ({ id }) => {
     }
     return null;
   }, [note.updated_at]);
-  const { container, menu } = Menu.useMenu();
 
   const selectNote = () => {
     NoteService.select(note);
@@ -38,32 +38,43 @@ const Note = ({ id }) => {
   }
 
   return (
-    <div className={styles.note} {...container} onClick={selectNote}>
-      <div className={styles.ear}>
-        {note.color && (
-          <span className={styles.color} style={{ color: note.color }}>
-            <Circle />
-          </span>
-        )}
-      </div>
-      <div className={styles.detail}>
-        <div className="flex flex-row">
-          <h4 className={classNames(styles.title, "flex-1")}>
-            {note.title} {note.new_note && !note.title && <>- New Note -</>}
-          </h4>
-          {renderStatus()}
+    <ContextMenu
+      options={
+        <>
+          <MenuItem
+            label="Delete"
+            icon={<FaTimes />}
+            onClick={() => NoteService.delete(note.id)}
+          />
+          <MenuItem
+            label={note.favorite ? "Remove Favorite" : "Favorite"}
+            icon={note.favorite ? <FaHeart /> : <FaRegHeart />}
+            onClick={() =>
+              NoteService.persist({ ...note, favorite: !note.favorite })
+            }
+          />
+        </>
+      }>
+      <div className={styles.note} onClick={selectNote}>
+        <div className={styles.ear}>
+          {note.color && (
+            <span className={styles.color} style={{ color: note.color }}>
+              <Circle />
+            </span>
+          )}
         </div>
-        <p className={styles.abstract}>{note.abstract}</p>
-        <span>{date}</span>
+        <div className={styles.detail}>
+          <div className="flex flex-row">
+            <h4 className={classNames(styles.title, "flex-1")}>
+              {note.title} {note.new_note && !note.title && <>- New Note -</>}
+            </h4>
+            {renderStatus()}
+          </div>
+          <p className={styles.abstract}>{note.abstract}</p>
+          <span>{date}</span>
+        </div>
       </div>
-      <Menu {...menu}>
-        <Menu.Item
-          label="Delete"
-          icon={<X />}
-          onClick={() => NoteService.delete(note.id)}
-        />
-      </Menu>
-    </div>
+    </ContextMenu>
   );
 };
 

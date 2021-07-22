@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { tagsList } from "store/reducers/tagsSlice";
 import { NetworkStates } from "store/states";
 import { TagService } from "services";
+import { FaTimes } from "react-icons/fa";
 
 const Sidebar = () => {
   const quickLinks = [
@@ -50,7 +51,7 @@ const Sidebar = () => {
                     {
                       label: "Delete",
                       onClick: () => TagService.delete(link.id),
-                      icon: <X />,
+                      icon: <FaTimes />,
                     },
                   ]}
                 />
