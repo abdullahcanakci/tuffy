@@ -49,7 +49,7 @@ const notesSlice = createSlice({
     },
     UPDATE: (state, action) => {
       const { note } = action.payload;
-      state.data[note.id] = note;
+      state.data[note.id] = { ...state.data[note.id], ...note };
     },
     TOGGLE_TAG: (state, action) => {
       const { attach, id, tagId } = action.payload;

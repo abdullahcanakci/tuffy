@@ -1,0 +1,38 @@
+.dropdown-container {
+  .dropdown {
+    color: $text-color;
+    background-color: $dark-two;
+    height: 2rem;
+    border-radius: 5px;
+    padding: 4px 8px;
+    min-width: 10rem;
+    text-align: start;
+    position: relative;
+
+    &:hover,
+    &:active {
+      background-color: $dark-one;
+    }
+
+    .icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      vertical-align: middle;
+      svg {
+        height: 2rem;
+        width: 2rem;
+        padding: 0.5rem;
+      }
+    }
+  }
+  .item {
+    @apply text-[#ddd] px-1 pr-[20px] py-1;
+    &:hover,
+    &.active {
+      @apply text-green-400;
+      background-color: #3b3c3c;
+      cursor: pointer;
+    }
+  }
+}

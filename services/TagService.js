@@ -3,8 +3,7 @@ import store from "store";
 import { INSERT, PUT_DATA, SET_STATE, DELETE } from "store/reducers/tagsSlice";
 import { DETACH_TAG } from "store/reducers/notesSlice";
 import { NetworkStates } from "store/states";
-
-const { fetcher } = require("utils");
+import { fetcher } from "utils";
 
 const create = (name) => {
   const tag = {

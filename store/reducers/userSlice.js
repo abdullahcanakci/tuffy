@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const { NetworkStates, AuthStates } = require("store/states");
+import { NetworkStates, AuthStates } from "store/states";
 
 const initialState = {
   data: null,

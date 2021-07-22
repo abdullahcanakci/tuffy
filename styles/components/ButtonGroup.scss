@@ -1,0 +1,21 @@
+.button-group {
+  margin-left: 8px;
+  .icon-button {
+    background-color: $dark-two;
+    padding: 4px;
+    &.active,
+    &:active,
+    &:hover,
+    &:focus {
+      background-color: $dark-one;
+    }
+
+    &:last-of-type {
+      border-radius: 0 8px 8px 0;
+    }
+
+    &:first-of-type {
+      border-radius: 8px 0 0 8px;
+    }
+  }
+}

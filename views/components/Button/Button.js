@@ -10,7 +10,7 @@ const Button = ({
   side,
   label,
   style = "primary",
-  block,
+  block = false,
   type = "button",
 }) => {
   const {
@@ -49,7 +49,7 @@ const Button = ({
               key={action.label}
               label={action.label}
               icon={action.icon}
-              onClick={action.onClick}
+              onClick={() => action.onClick(action)}
             />
           ))}
         </Menu>

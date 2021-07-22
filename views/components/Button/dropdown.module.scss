@@ -1,0 +1,19 @@
+@import "styles/colors.scss";
+
+.dropdown {
+  color: $text-color;
+  padding-left: 8px;
+  padding-right: 8px;
+  &:hover,
+  &:active {
+    color: $primary-highlight;
+  }
+}
+
+.dropdown::after {
+  content: "▼";
+  font-size: 0.6rem;
+  margin-left: 8px;
+  height: 100%;
+  display: inline-block;
+}
