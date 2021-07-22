@@ -1,13 +1,19 @@
 import classNames from "classnames";
+import React from "react";
 
-const IconButton = ({ children, label, className, active, ...rest }) => {
-  return (
-    <button
-      className={classNames("icon-button", className, { active })}
-      {...rest}>
-      {children}
-    </button>
-  );
-};
+const IconButton = React.forwardRef(
+  ({ children, label, className, active, ...rest }, ref) => {
+    const button = (
+      <button
+        className={classNames("icon-button", className, { active })}
+        ref={ref}
+        {...rest}>
+        {children}
+      </button>
+    );
+
+    return button;
+  }
+);
 
 export default IconButton;

@@ -51,14 +51,6 @@
   form {
     @apply flex-1;
   }
-
-  span {
-    @apply block w-6;
-
-    svg {
-      @apply block w-full p-1 m-auto;
-    }
-  }
 }
 
 .tag {

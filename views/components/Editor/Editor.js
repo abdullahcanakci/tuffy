@@ -1,9 +1,8 @@
 import Toolbar from "./Toolbar";
 import styles from "./index.module.scss";
 import { useSelector } from "react-redux";
-import { Spinner } from "..";
+import { IconButton, Spinner } from "..";
 import { useEffect, useRef, useState } from "react";
-import Icon from "../Button/Icon";
 import { X } from "react-feather";
 import { NoteService } from "services";
 import { activeNote } from "store/reducers/notesSlice";
@@ -68,7 +67,7 @@ const Editor = () => {
                 onBlur={onBlur}
               />
               {title.length > 0 && titleInput.current && (
-                <Icon icon={<X />} onClick={(e) => setTitle("")} />
+                <IconButton icon={<X />} onClick={(e) => setTitle("")} />
               )}
             </div>
           </div>

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { Menu } from "..";
 import styles from "./index.module.scss";
 
 const Button = ({
@@ -13,11 +12,6 @@ const Button = ({
   block = false,
   type = "button",
 }) => {
-  const {
-    container: { onContextMenu },
-    menu,
-  } = Menu.useMenu();
-
   const handleClick = (e) => {
     if (actions) {
       e.preventDefault();
@@ -42,18 +36,6 @@ const Button = ({
         {icon}
         <span>{label}</span>
       </button>
-      {actions && (
-        <Menu {...menu} side={side}>
-          {actions.map((action) => (
-            <Menu.Item
-              key={action.label}
-              label={action.label}
-              icon={action.icon}
-              onClick={() => action.onClick(action)}
-            />
-          ))}
-        </Menu>
-      )}
     </>
   );
 };
