@@ -13,43 +13,44 @@ import Tiptap from "../Tiptap";
 const Editor = () => {
   const status = useSelector((state) => state.notes.status);
   const note = useSelector(activeNote);
-  const [isDirty, setIsDirty] = useState(false);
 
   const [title, setTitle] = useState("");
+  const [content, setContent] = useState([]);
+  const [initialState, setInitialState] = useState({ title: "", content: [] });
   const titleInput = useRef(null);
-
-  useEffect(() => {
-    if (note) {
-      setTitle(note.title);
-    } else {
-      setTitle("");
-    }
-  }, [note]);
 
   const onBlur = () => {
     if (title != note.title) {
-      setIsDirty(true);
+      NoteService.update({ ...note, title });
     }
   };
 
   useEffect(() => {
-    if (isDirty) {
-      const handle = setTimeout(() => {
-        setIsDirty(false);
-        NoteService.update({ ...note, title: title });
-      }, 500);
-      return () => clearTimeout(handle);
+    if (!note) {
+      setTitle("");
+      setContent([]);
+      return;
     }
-  }, [isDirty]);
+    console.log("test");
+    setTitle(note.title ?? "");
+    setContent(note.content ?? []);
+  }, [note?.id]);
 
   useEffect(() => {
-    if (note?.status == DataStates.DIRTY) {
-      const handle = setTimeout(() => {
-        NoteService.persist(note);
-      }, 2000);
-      return () => clearTimeout(handle);
-    }
+    if (!note) return;
+
+    const timeout = setTimeout(() => {
+      console.log("interval", note);
+      if (note.status !== DataStates.DIRTY) return;
+      NoteService.persist(note);
+    }, 5000);
+    return () => clearTimeout(timeout);
   }, [note?.status]);
+
+  const onContentChange = (content) => {
+    NoteService.update({ ...note, content });
+    setContent(content);
+  };
 
   const renderEditor = () => {
     return (
@@ -72,7 +73,11 @@ const Editor = () => {
             </div>
           </div>
         </div>
-        <Tiptap className="px-4 py-2" />
+        <Tiptap
+          className="px-4 py-2"
+          content={content}
+          onChange={onContentChange}
+        />
       </div>
     );
   };
