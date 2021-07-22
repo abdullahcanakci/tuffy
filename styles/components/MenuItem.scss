@@ -3,21 +3,22 @@
   flex-direction: row;
   color: #ddd;
   padding: 0.25rem;
+  cursor: pointer;
 
   &:hover,
   &.active {
     color: #34d399;
     background-color: #3b3c3c;
-    cursor: pointer;
   }
 
   span {
-    height: 1.5rem;
+    vertical-align: middle;
     width: 1.5rem;
+    height: 1.5rem;
     svg {
-      width: 100%;
-      padding: 0.2rem;
-
+      display: block;
+      height: 100%;
+      padding: 0.15rem;
       margin: 0 auto;
     }
   }

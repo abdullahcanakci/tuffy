@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import { useMemo } from "react";
 import { AlertCircle, Circle, Loader, X } from "react-feather";
+import { FaHeart, FaRegHeart, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { NoteService } from "services";
 import { DataStates } from "store/states";
@@ -39,11 +40,20 @@ const Note = ({ id }) => {
   return (
     <ContextMenu
       options={
-        <MenuItem
-          label="Delete"
-          icon={<X />}
-          onClick={() => NoteService.delete(note.id)}
-        />
+        <>
+          <MenuItem
+            label="Delete"
+            icon={<FaTimes />}
+            onClick={() => NoteService.delete(note.id)}
+          />
+          <MenuItem
+            label={note.favorite ? "Remove Favorite" : "Favorite"}
+            icon={note.favorite ? <FaHeart /> : <FaRegHeart />}
+            onClick={() =>
+              NoteService.persist({ ...note, favorite: !note.favorite })
+            }
+          />
+        </>
       }>
       <div className={styles.note} onClick={selectNote}>
         <div className={styles.ear}>
