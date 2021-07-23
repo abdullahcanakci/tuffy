@@ -59,6 +59,10 @@
   @apply pl-4;
 }
 
+.quicklink.active {
+  @apply text-green-400;
+}
+
 .sidebar_group > h4 {
   @apply pt-2 mt-6;
 }

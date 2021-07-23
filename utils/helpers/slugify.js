@@ -1,5 +1,5 @@
-import slugify from "slugify";
+import { default as Slugify } from "slugify";
 
-export default function (input) {
-  return slugify(input, { replacement: "_", lower: true });
+export default function slugify(input) {
+  return Slugify(input, { replacement: "_", lower: true });
 }

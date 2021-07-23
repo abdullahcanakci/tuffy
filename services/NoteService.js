@@ -9,9 +9,11 @@ import {
   SET_ACTIVE,
   DELETE,
   TOGGLE_TAG,
+  FILTER,
 } from "store/reducers/notesSlice";
 import { NetworkStates, DataStates } from "store/states";
 import { fetcher } from "utils";
+import { query_builder } from "utils/helpers";
 
 const create = (title) => {
   const note = {
@@ -103,10 +105,26 @@ const fetch = (refetch = false) => {
         state.notes.next ? NetworkStates.FETCH_MORE : NetworkStates.FETCH
       )
     );
-    fetcher("/api/notes?" + state.notes.next).then((data) => {
-      dispatch(PUT_DATA(data));
+
+    fetcher(
+      "/api/notes?" +
+        query_builder({ ...state.notes.filter }, !refetch && state.notes.next)
+    ).then((data) => {
+      dispatch(PUT_DATA({ ...data, refetch }));
     });
   };
+  store.dispatch(fn);
+};
+
+const filter = (filter, replace = true) => {
+  const fn = async (dispatch, getState) => {
+    if (!replace) {
+      filter = { ...getState().notes.filter, filter };
+    }
+    await dispatch(FILTER({ filter }));
+    fetch(true);
+  };
+
   store.dispatch(fn);
 };
 
@@ -118,6 +136,7 @@ const NoteService = {
   select,
   toggleTag,
   update,
+  filter,
 };
 
 export default NoteService;
