@@ -1,0 +1,37 @@
+.pill {
+  background-color: $primary-color;
+  color: $text-color;
+  display: flex;
+  flex-direction: row;
+  border-radius: 9999px;
+  height: 2rem;
+  .pill_label {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    height: 2rem;
+    font-weight: 600;
+    vertical-align: middle;
+    padding-left: 1rem;
+  }
+
+  &:not(.pill_delete) {
+    padding-right: 1rem;
+  }
+
+  &:not(:last-of-type) {
+    margin-right: 0.5rem;
+  }
+
+  button {
+    border-radius: 9999px;
+    margin-left: 0.25rem;
+    &:hover,
+    &:active,
+    &:focus {
+      color: $text-color;
+      background-color: $primart-shadow;
+    }
+  }
+}

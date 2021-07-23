@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { TagService, NoteService } from "services";
 import { activeNote } from "store/reducers/notesSlice";
 import { tagSearch } from "store/reducers/tagsSlice";
-import { Card, Pill, Portal } from "..";
+import { Card, Portal, Pill } from "..";
 import styles from "./index.module.scss";
 
 const TagInput = () => {
@@ -87,7 +87,7 @@ const TagInput = () => {
   return (
     <form onSubmit={confirmEntry}>
       <div className={styles.search_area} ref={menuRef}>
-        <span className="btn-icon">
+        <span className={`btn-icon ${styles.tag_icon}`}>
           <Tag />
         </span>
         {note.tags?.length > 0 &&
