@@ -50,10 +50,10 @@ const TagInput = () => {
       }
     };
 
-    if (inputRef.current) {
+    if (inputRef?.current) {
       inputRef.current.addEventListener("keydown", handleKeyPress, false);
       return () =>
-        inputRef.current.removeEventListener("keydown", handleKeyPress);
+        inputRef?.current?.removeEventListener("keydown", handleKeyPress);
     }
   }, [tags]);
 

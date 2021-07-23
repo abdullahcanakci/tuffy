@@ -11,9 +11,14 @@ handler.use(session).get(async (req, res) => {
     return;
   }
 
-  const { id, updated_at } = req.query;
+  const { id, updated_at, favorite, tag, reminder } = req.query;
 
-  let filter = { user_id: ObjectId(user.id) };
+  let filter = {
+    user_id: ObjectId(user.id),
+    ...(favorite ? { favorite: { $eq: true } } : {}),
+    ...(tag ? { tags: { $elemMatch: { $in: [tag] } } } : {}),
+    ...(reminder ? { reminder: { $exists: true } } : {}),
+  };
   if (id && updated_at) {
     filter["$or"] = [
       {

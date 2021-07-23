@@ -25,8 +25,8 @@ const persist = (tag) => {
 };
 
 const deleteTag = (id) => {
-  store.dispatch(DELETE({ tag: { id } }));
   store.dispatch(DETACH_TAG({ id }));
+  store.dispatch(DELETE({ tag: { id } }));
   fetcher(`/api/tags/${id}`, {
     method: "DELETE",
   });

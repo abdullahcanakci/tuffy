@@ -9,18 +9,40 @@ import { tagsList } from "store/reducers/tagsSlice";
 import { NetworkStates } from "store/states";
 import { TagService } from "services";
 import { FaTimes } from "react-icons/fa";
+import { NoteService } from "services";
 
 const Sidebar = () => {
+  const tagsStatus = useSelector((state) => state.tags.status);
+  const filter = useSelector((state) => state.notes.filter);
+  const tags = useSelector(tagsList);
+
   const quickLinks = [
-    { name: "All Notes", icon: <Book /> },
-    { name: "Reminders", icon: <Bell /> },
-    { name: "Tasks", icon: <CheckSquare /> },
-    { name: "Favorites", icon: <Heart /> },
+    {
+      name: "All Notes",
+      icon: <Book />,
+      active: Object.keys(filter).length === 0,
+      onClick: () => NoteService.filter({}, true),
+    },
+    {
+      name: "Reminders",
+      icon: <Bell />,
+      active: filter?.reminder,
+      onClick: () => NoteService.filter({ reminder: true }, true),
+    },
+    {
+      name: "Tasks",
+      icon: <CheckSquare />,
+      active: filter?.task,
+      onClick: () => NoteService.filter({ task: true }, true),
+    },
+    {
+      name: "Favorites",
+      icon: <Heart />,
+      active: filter?.favorite,
+      onClick: () => NoteService.filter({ favorite: true }, true),
+    },
     { name: "Hightlights" },
   ];
-
-  const tagsStatus = useSelector((state) => state.tags.status);
-  const tags = useSelector(tagsList);
 
   const onNewEntry = (value) => {
     TagService.create(value);
@@ -33,7 +55,12 @@ const Sidebar = () => {
           <SectionTitle title="Quick Links" />
           <ul>
             {quickLinks.map((link) => (
-              <QuickLink content={link} key={link.name} />
+              <QuickLink
+                content={link}
+                key={link.name}
+                active={link.active}
+                onClick={link.onClick}
+              />
             ))}
           </ul>
         </Section>
@@ -47,6 +74,8 @@ const Sidebar = () => {
                 <QuickLink
                   content={link}
                   key={link.id}
+                  onClick={() => NoteService.filter({ tag: link.id }, true)}
+                  active={filter.tag && filter.tag == link.id}
                   actions={[
                     {
                       label: "Delete",

@@ -5,6 +5,7 @@ const initialState = {
   data: {},
   notesList: [],
   dirtyList: [],
+  filter: {},
   next: null,
   active: null,
   status: NetworkStates,
@@ -18,7 +19,12 @@ const notesSlice = createSlice({
       state = initialState;
     },
     PUT_DATA: (state, action) => {
-      const { data, meta } = action.payload;
+      const { data, meta, refetch } = action.payload;
+      if (refetch) {
+        state.data = {};
+        state.notesList = [];
+        state.active = null;
+      }
       state.next = meta.next;
       data.forEach((element) => {
         state.data[element.id] = element;
@@ -75,6 +81,9 @@ const notesSlice = createSlice({
         }
       });
     },
+    FILTER: (state, action) => {
+      state.filter = action.payload.filter;
+    },
   },
 });
 
@@ -88,6 +97,7 @@ export const {
   UPDATE,
   TOGGLE_TAG,
   DETACH_TAG,
+  FILTER,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;
