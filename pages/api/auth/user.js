@@ -1,10 +1,9 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
+import RequestHandler from "middlewares/RequestHandler";
 
-const handler = nextConnect();
+const handler = RequestHandler({ auth: "public" });
 
-handler.use(session).get(async (req, res) => {
-  const user = req.session.get("user");
+handler.get(async (req, res) => {
+  const { user } = req;
   res.send(user ?? { isLoggedIn: false });
 });
 

@@ -1,18 +1,13 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
-import connectToDatabase from "utils/connectToDatabase";
 import { ObjectId } from "bson";
+import RequestHandler from "middlewares/RequestHandler";
 
-const handler = nextConnect();
+const handler = RequestHandler({
+  auth: "auth",
+  database: true,
+});
 
-handler.use(session).get(async (req, res) => {
-  const user = req.session.get("user");
-  if (!user?.isLoggedIn) {
-    res.statusCode(401).end();
-    return;
-  }
-
-  const { db } = await connectToDatabase();
+handler.get(async (req, res) => {
+  const { db, user } = req;
   const tags = await db
     .collection("tags")
     .find({ user_id: ObjectId(user.id) }, { _id: 1, name: 1 })

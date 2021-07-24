@@ -7,13 +7,12 @@ import UploadMiddleware from "./UploadMiddleware";
 export default function RequestHandler(options = {}) {
   const handler = nextConnect();
 
-  if (options.session) {
-    handler.use(SessionMiddleware);
-  }
+  handler.use(SessionMiddleware);
 
   if (options.auth) {
-    handler.use(AuthMiddleware);
+    handler.use(AuthMiddleware(options.auth));
   }
+
   if (options.files) {
     handler.use(
       UploadMiddleware.array(`${options.files.field}`, options.files.count)

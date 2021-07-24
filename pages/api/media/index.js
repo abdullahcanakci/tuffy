@@ -3,8 +3,7 @@ import { formatISO } from "date-fns";
 import RequestHandler from "middlewares/RequestHandler";
 
 const handler = RequestHandler({
-  session: true,
-  auth: true,
+  auth: "auth",
   database: true,
   files: { field: "upload", count: 1 },
 });

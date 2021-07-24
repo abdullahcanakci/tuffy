@@ -1,9 +1,8 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
+import RequestHandler from "middlewares/RequestHandler";
 
-const handler = nextConnect();
+const handler = RequestHandler({ auth: "auth" });
 
-handler.use(session).post(async (req, res) => {
+handler.post(async (req, res) => {
   req.session.destroy();
 
   res.send({ isLoggedIn: false });
