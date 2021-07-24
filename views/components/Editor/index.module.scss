@@ -33,7 +33,7 @@
 .search_area {
   @apply px-2 rounded-full bg-[#323232] flex flex-row text-[#dddddd99] py-1;
 
-  span {
+  .tag_icon {
     @apply block w-6;
 
     svg {
