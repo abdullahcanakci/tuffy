@@ -30,8 +30,18 @@ const TiptapMenu = ({ editor }) => {
     }
   }, [textState]);
 
+  const insertImage = () => {
+    editor
+      .chain()
+      .focus()
+      .setImage({
+        src: "https://images.pexels.com/photos/8817871/pexels-photo-8817871.jpeg?crop=entropy&cs=srgb&dl=pexels-kate-gundareva-8817871.jpg&fit=crop&fm=jpg&h=800&w=640",
+      })
+      .run();
+  };
+
   return (
-    <div className="flex flex-row gap-1 items-center py-2">
+    <div className="flex flex-row gap-1 items-center py-2 sticky top-0 z-10">
       <Dropdown echoOption>
         <DropdownItem
           label="Heading 1"
@@ -98,8 +108,7 @@ const TiptapMenu = ({ editor }) => {
           active={editor.isActive("code")}>
           <FaCode />
         </IconButton>
-        <IconButton
-          onClick={() => console.log("Image upload not yet implemented!")}>
+        <IconButton onClick={() => insertImage()}>
           <FaImage />
         </IconButton>
       </div>

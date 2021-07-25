@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "es6",
+    "module": "commonjs",
     "target": "es6",
     "baseUrl": ".",
     "paths": {
@@ -8,8 +8,8 @@
       "hooks": ["src/hooks/index"],
       "services": ["src/services/index"],
       "styles": ["styles"],
-      "components": ["src/views/components"],
-      "containers": ["src/views/containers"]
+      "components": ["views/components/index"],
+      "containers": ["views/containers/index"]
     }
   }
 }

@@ -7,3 +7,4 @@ export { Card, Menu, Portal, Spinner };
 
 export * from "./Button";
 export * from "./Pill";
+export * from "./ImagePicker";
