@@ -45,9 +45,9 @@ const NoteList = () => {
           ))}
           <InfiniteScroller
             loadingView={<Spinner />}
+            fetchMore={fetchMore}
             nextSelector={(state) => state.notes.next}
             statusSelector={(state) => state.notes.status}
-            next={next}
             noneView={
               <div className="w-full h-full flex-1 flex flex-col  justify-center py-4">
                 <p className="block text-[#dddddd99] text-center">

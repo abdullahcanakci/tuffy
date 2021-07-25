@@ -12,9 +12,11 @@ import {
   FaImage,
 } from "react-icons/fa";
 import { DropdownItem } from "../Button/Dropdown";
+import { ImagePicker } from "components";
 
 const TiptapMenu = ({ editor }) => {
   if (!editor) return null;
+  const [visible, setVisible] = useState(false);
   const [textState, setTextState] = useState({
     label: "Heading 1",
     type: "heading",
@@ -30,12 +32,14 @@ const TiptapMenu = ({ editor }) => {
     }
   }, [textState]);
 
-  const insertImage = () => {
+  const insertImage = (image) => {
+    setVisible(false);
     editor
       .chain()
       .focus()
       .setImage({
-        src: "https://images.pexels.com/photos/8817871/pexels-photo-8817871.jpeg?crop=entropy&cs=srgb&dl=pexels-kate-gundareva-8817871.jpg&fit=crop&fm=jpg&h=800&w=640",
+        src: image.url,
+        id: image.id,
       })
       .run();
   };
@@ -108,7 +112,7 @@ const TiptapMenu = ({ editor }) => {
           active={editor.isActive("code")}>
           <FaCode />
         </IconButton>
-        <IconButton onClick={() => insertImage()}>
+        <IconButton onClick={() => setVisible(true)}>
           <FaImage />
         </IconButton>
       </div>
@@ -121,6 +125,11 @@ const TiptapMenu = ({ editor }) => {
           <FaRedo />
         </IconButton>
       </div>
+      <ImagePicker
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        onSelect={(image) => insertImage(image)}
+      />
     </div>
   );
 };

@@ -1,10 +1,9 @@
 import Head from "next/head";
-import { ImagePicker } from "components";
+import { Button, ImagePicker } from "components";
 import { useState } from "react";
 
 const Index = () => {
-  const [time, setTime] = useState(0);
-
+  const [visible, setVisible] = useState(false);
   return (
     <>
       <Head>
@@ -12,7 +11,14 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=" bg-[#323232]">
-        <ImagePicker time={time} />
+        <Button label="button" onClick={() => setVisible((x) => !x)} />
+        <ImagePicker
+          visible={visible}
+          onCancel={() => setVisible(false)}
+          onSelect={(image) => {
+            console.log(image);
+            setVisible(false);
+          }}></ImagePicker>
       </div>
     </>
   );

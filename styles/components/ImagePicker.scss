@@ -5,6 +5,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
+  background-color: #1f1f1fcc;
 }
 
 .image_picker {
@@ -66,6 +67,11 @@
       display: inline-block;
       width: 30%;
       height: 100px;
+      border: solid 2px transparent;
+      &.active {
+        border: solid 2px $primary-color;
+        border-radius: 6px;
+      }
 
       img {
         height: 100%;
