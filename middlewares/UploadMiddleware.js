@@ -10,7 +10,7 @@ AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID_PER,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_PER,
 });
-
+console.log(process.env);
 const UploadMiddleware = multer({
   storage: multerS3({
     s3: s3,
