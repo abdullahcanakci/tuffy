@@ -8,6 +8,7 @@ import { NoteService } from "services";
 import { activeNote } from "store/reducers/notesSlice";
 import { DataStates } from "store/states";
 import Tiptap from "../Tiptap";
+import classNames from "node_modules/classnames/index";
 
 const Editor = () => {
   const status = useSelector((state) => state.notes.status);
@@ -93,7 +94,7 @@ const Editor = () => {
     );
   };
   return (
-    <div className={styles.editor}>
+    <div className={classNames(styles.editor, "overflow-y-auto")}>
       {!note && renderCallToAction()}
       {note && renderEditor()}
     </div>

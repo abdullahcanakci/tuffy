@@ -2,11 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { NetworkStates } from "store/states";
 
-const InfiniteScroller = ({ loadingView, noneView, fetchMore }) => {
+const InfiniteScroller = ({
+  loadingView,
+  noneView,
+  fetchMore,
+  nextSelector,
+  statusSelector,
+}) => {
   const ref = useRef();
   const [notified, setNotified] = useState(false);
-  const networkStatus = useSelector((state) => state.notes.status);
-  const next = useSelector((state) => state.notes.next);
+  const networkStatus = useSelector(statusSelector);
+  const next = useSelector(nextSelector);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {

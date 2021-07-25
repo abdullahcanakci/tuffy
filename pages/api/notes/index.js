@@ -1,17 +1,17 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
-import connectToDatabase from "utils/connectToDatabase";
 import { ObjectId } from "bson";
-const handler = nextConnect();
+import RequestHandler from "middlewares/RequestHandler";
 
-handler.use(session).get(async (req, res) => {
-  const user = req.session.get("user");
-  if (!user?.isLoggedIn) {
-    res.statusCode(401).end();
-    return;
-  }
+const handler = RequestHandler({
+  auth: "auth",
+  database: true,
+});
 
-  const { id, updated_at, favorite, tag, reminder } = req.query;
+handler.get(async (req, res) => {
+  const {
+    query: { id, updated_at, favorite, tag, reminder },
+    user,
+    db,
+  } = req;
 
   let filter = {
     user_id: ObjectId(user.id),
@@ -31,7 +31,6 @@ handler.use(session).get(async (req, res) => {
     ];
   }
 
-  const { db } = await connectToDatabase();
   const notes = await db
     .collection("notes")
     .find(filter, { _id: 1, title: 1, updated_at: 1, favorite: 1 })

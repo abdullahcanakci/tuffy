@@ -1,19 +1,21 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
 import { checkPassword } from "utils/password";
-import connectToDatabase from "utils/connectToDatabase";
+import RequestHandler from "middlewares/RequestHandler";
 
-const handler = nextConnect();
+const handler = RequestHandler({
+  auth: "guest",
+  database: true,
+});
 
-handler.use(session).post(async (req, res) => {
-  const { email, password } = await req.body;
+handler.post(async (req, res) => {
+  const {
+    db,
+    body: { email, password },
+  } = req;
 
   if (email == null || email == "" || password == "" || password == null) {
     res.status(422).json({ errors: ["Wrong credentials"] });
     return;
   }
-
-  const { db } = await connectToDatabase();
 
   const user = await db.collection("users").findOne({ email: email });
 

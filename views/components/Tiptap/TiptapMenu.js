@@ -12,9 +12,11 @@ import {
   FaImage,
 } from "react-icons/fa";
 import { DropdownItem } from "../Button/Dropdown";
+import { ImagePicker } from "components";
 
 const TiptapMenu = ({ editor }) => {
   if (!editor) return null;
+  const [visible, setVisible] = useState(false);
   const [textState, setTextState] = useState({
     label: "Heading 1",
     type: "heading",
@@ -30,8 +32,20 @@ const TiptapMenu = ({ editor }) => {
     }
   }, [textState]);
 
+  const insertImage = (image) => {
+    setVisible(false);
+    editor
+      .chain()
+      .focus()
+      .setImage({
+        src: image.url,
+        id: image.id,
+      })
+      .run();
+  };
+
   return (
-    <div className="flex flex-row gap-1 items-center py-2">
+    <div className="flex flex-row gap-1 items-center py-2 sticky top-0 z-10">
       <Dropdown echoOption>
         <DropdownItem
           label="Heading 1"
@@ -98,8 +112,7 @@ const TiptapMenu = ({ editor }) => {
           active={editor.isActive("code")}>
           <FaCode />
         </IconButton>
-        <IconButton
-          onClick={() => console.log("Image upload not yet implemented!")}>
+        <IconButton onClick={() => setVisible(true)}>
           <FaImage />
         </IconButton>
       </div>
@@ -112,6 +125,11 @@ const TiptapMenu = ({ editor }) => {
           <FaRedo />
         </IconButton>
       </div>
+      <ImagePicker
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        onSelect={(image) => insertImage(image)}
+      />
     </div>
   );
 };

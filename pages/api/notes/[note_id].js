@@ -1,21 +1,19 @@
-import { session } from "utils";
-import nextConnect from "next-connect";
-import connectToDatabase from "utils/connectToDatabase";
 import { ObjectId } from "bson";
 import { formatISO } from "date-fns";
+import RequestHandler from "middlewares/RequestHandler";
 
-const handler = nextConnect();
+const handler = RequestHandler({
+  auth: "auth",
+  database: true,
+});
 
-handler.use(session).get(async (req, res) => {
-  const user = req.session.get("user");
-  if (!user?.isLoggedIn) {
-    res.statusCode(401).end();
-    return;
-  }
+handler.get(async (req, res) => {
+  const {
+    query: { note_id },
+    user,
+    db,
+  } = req;
 
-  const { note_id } = req.query;
-
-  const { db } = await connectToDatabase();
   const note = await db
     .collection("notes")
     .findOne(
@@ -26,17 +24,13 @@ handler.use(session).get(async (req, res) => {
   res.json({ ...note, id: note._id.toString() });
 });
 
-handler.use(session).post(async (req, res) => {
-  const user = req.session.get("user");
-  if (!user?.isLoggedIn) {
-    res.statusCode(401).end();
-    return;
-  }
-
-  const { note_id } = req.query;
-  const { title, content, abstract, tags, favorite } = req.body;
-
-  const { db } = await connectToDatabase();
+handler.post(async (req, res) => {
+  const {
+    query: { note_id },
+    user,
+    db,
+    body: { title, content, abstract, tags, favorite },
+  } = req;
 
   const note = await db.collection("notes").updateOne(
     { _id: ObjectId(note_id), user_id: ObjectId(user.id) }, // filter
@@ -60,16 +54,13 @@ handler.use(session).post(async (req, res) => {
   res.json({ id: note_id, title, content, abstract });
 });
 
-handler.use(session).delete(async (req, res) => {
-  const user = req.session.get("user");
-  if (!user?.isLoggedIn) {
-    res.statusCode(401).end();
-    return;
-  }
+handler.delete(async (req, res) => {
+  const {
+    query: { note_id },
+    user,
+    db,
+  } = req;
 
-  const { note_id } = req.query;
-
-  const { db } = await connectToDatabase();
   try {
     const note = await db.collection("notes").deleteOne(
       { _id: ObjectId(note_id), user_id: ObjectId(user.id) } // filter
