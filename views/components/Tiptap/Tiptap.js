@@ -22,7 +22,9 @@ const Tiptap = ({ className, onChange, content = [] }) => {
     editor.commands.setContent({ type: "doc", content });
   }, [content]);
   return (
-    <div className={classNames("w-full h-full flex flex-col", className)}>
+    <div
+      className={classNames("w-full h-full flex flex-col mx-auto", className)}
+      style={{ maxWidth: "800px" }}>
       <TiptapMenu editor={editor} />
       <EditorContent editor={editor} />
     </div>

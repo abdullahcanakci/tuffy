@@ -3,13 +3,14 @@ import classNames from "classnames";
 import { Button, Card } from "components";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { ImageService } from "services";
 import { imagesList } from "store/reducers/imagesSlice";
 import { DataStates } from "store/states";
 import { Spinner } from "components";
 import InfiniteScroller from "../NoteList/InfiniteScroller";
+import { ContextMenu, MenuItem } from "../Menu";
 
 const ImagePicker = ({ onSelect, onCancel, visible }) => {
   const onDrop = useCallback((acceptedFiles) => {
@@ -68,18 +69,27 @@ const ImagePicker = ({ onSelect, onCancel, visible }) => {
             <div className="w-full overflow-y-auto h-[300px] flex flex-col">
               <div className="list_area">
                 {images.map((image) => (
-                  <div
-                    key={image.id}
-                    className={classNames("image", {
-                      active: image.id == active?.id,
-                    })}
-                    onClick={() => setActive(image)}>
-                    {image.status == DataStates.IN_FLIGHT ? (
-                      <Spinner />
-                    ) : (
-                      <img src={image.url} />
-                    )}
-                  </div>
+                  <ContextMenu
+                    options={
+                      <MenuItem
+                        label="Delete"
+                        icon={<FaTimes />}
+                        onClick={() => ImageService.delete(image.id)}
+                      />
+                    }>
+                    <div
+                      key={image.id}
+                      className={classNames("image", {
+                        active: image.id == active?.id,
+                      })}
+                      onClick={() => setActive(image)}>
+                      {image.status == DataStates.IN_FLIGHT ? (
+                        <Spinner />
+                      ) : (
+                        <img src={image.url} />
+                      )}
+                    </div>
+                  </ContextMenu>
                 ))}
               </div>
               <InfiniteScroller

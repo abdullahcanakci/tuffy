@@ -1,6 +1,7 @@
 import * as multer from "multer";
 import * as AWS from "aws-sdk";
 import * as multerS3 from "multer-s3";
+import { slugify } from "utils/helpers";
 
 const AWS_S3_BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME;
 const s3 = new AWS.S3();
@@ -15,8 +16,8 @@ const UploadMiddleware = multer({
     s3: s3,
     bucket: AWS_S3_BUCKET_NAME,
     acl: "public-read",
-    key: function (request, file, cb) {
-      cb(null, `${Date.now().toString()} - ${file.originalname}`);
+    filename: function (request, file, cb) {
+      cb(null, slugify(`${Date.now().toString()} - ${file.originalname}`));
     },
   }),
 });

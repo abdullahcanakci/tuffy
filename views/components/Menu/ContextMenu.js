@@ -27,21 +27,19 @@ const ContextMenu = ({ children, options }) => {
   };
 
   return (
-    <div className="dropdown-container">
-      <Tippy
-        render={() => <Card className="dropdown-container">{options}</Card>}
-        interactive={true}
-        visible={isOpen}
-        onClickOutside={close}
-        followCursor="initial"
-        placement="bottom"
-        plugins={[followCursor]}>
-        {React.cloneElement(children, {
-          onContextMenu: open,
-          onClick: handleOnClick,
-        })}
-      </Tippy>
-    </div>
+    <Tippy
+      render={() => <Card className="dropdown-container">{options}</Card>}
+      interactive={true}
+      visible={isOpen}
+      onClickOutside={close}
+      followCursor="initial"
+      placement="bottom"
+      plugins={[followCursor]}>
+      {React.cloneElement(children, {
+        onContextMenu: open,
+        onClick: handleOnClick,
+      })}
+    </Tippy>
   );
 };
 

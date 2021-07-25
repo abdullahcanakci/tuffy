@@ -1,6 +1,11 @@
 import { ObjectID } from "bson";
 import store from "store";
-import { PUT_DATA, UPSERT, SET_STATE } from "store/reducers/imagesSlice";
+import {
+  PUT_DATA,
+  UPSERT,
+  SET_STATE,
+  DELETE,
+} from "store/reducers/imagesSlice";
 import { DataStates, NetworkStates } from "store/states";
 import { fetcher } from "utils";
 import { query_builder } from "utils/helpers";
@@ -23,7 +28,16 @@ const create = (file) => {
   store.dispatch(fn);
 };
 
-const deleteImage = () => {};
+const deleteImage = (id) => {
+  const fn = (dispatch, getState) => {
+    dispatch(DELETE({ id }));
+    return fetcher(`/api/media/${id}`, {
+      method: "DELETE",
+    });
+  };
+  store.dispatch(fn);
+};
+
 const fetch = (refetch = false) => {
   const fn = (dispatch, getState) => {
     const state = getState();
