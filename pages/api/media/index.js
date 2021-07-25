@@ -7,9 +7,6 @@ const handler = RequestHandler({
   database: true,
   files: { field: "upload", count: 1 },
 });
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 handler.get(async (req, res) => {
   const {
@@ -26,7 +23,6 @@ handler.get(async (req, res) => {
     ];
   }
 
-  await sleep(1000);
   const images = await db
     .collection("media")
     .find(filter, { _id: 1, url: 1 })
