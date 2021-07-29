@@ -16,7 +16,7 @@ const Index = () => {
   return (
     <div>
       <Head>
-        <title>Welcome</title>
+        <title>Taffy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

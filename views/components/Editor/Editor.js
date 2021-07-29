@@ -87,7 +87,7 @@ const Editor = () => {
       <>
         <div className="w-full h-full flex-1 flex flex-col  justify-center">
           <p className="block text-[#dddddd99] text-center">
-            Yeni bir not oluşturun!
+            Create a new note!
           </p>
         </div>
       </>

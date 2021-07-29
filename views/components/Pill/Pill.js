@@ -12,7 +12,7 @@ const Pill = ({ label, onClick, onDelete }) => {
       onClick={handleClick}>
       <span className="pill_label">{label}</span>
       {onDelete && (
-        <IconButton hover onClick={() => onDelete()}>
+        <IconButton onClick={() => onDelete()}>
           <FaTimes />
         </IconButton>
       )}

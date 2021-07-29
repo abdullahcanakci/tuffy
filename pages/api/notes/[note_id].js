@@ -38,6 +38,7 @@ handler.post(async (req, res) => {
       $setOnInsert: {
         created_at: formatISO(new Date()),
         user_id: ObjectId(user.id),
+        _id: ObjectId(note_id),
       },
       $set: {
         title,

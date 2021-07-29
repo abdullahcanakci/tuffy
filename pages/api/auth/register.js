@@ -32,7 +32,11 @@ handler.use(session).post(async (req, res) => {
     .insertOne({ email: email, password: hash });
 
   try {
-    user = { isLoggedIn: true };
+    user = {
+      isLoggedIn: true,
+      email: user.email,
+      id: user._id.toString(),
+    };
     req.session.set("user", user);
     await req.session.save();
     res.json(user);

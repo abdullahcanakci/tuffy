@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Button, ImagePicker } from "components";
+import { Button, ImagePicker, Pill } from "components";
 import { useState } from "react";
 
 const Index = () => {
@@ -11,14 +11,7 @@ const Index = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=" bg-[#323232]">
-        <Button label="button" onClick={() => setVisible((x) => !x)} />
-        <ImagePicker
-          visible={visible}
-          onCancel={() => setVisible(false)}
-          onSelect={(image) => {
-            console.log(image);
-            setVisible(false);
-          }}></ImagePicker>
+        <Pill onDelete="true" label="test" />
       </div>
     </>
   );

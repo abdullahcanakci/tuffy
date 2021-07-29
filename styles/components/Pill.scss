@@ -4,14 +4,14 @@
   display: flex;
   flex-direction: row;
   border-radius: 9999px;
-  height: 2rem;
+  height: 1.3rem;
   .pill_label {
     flex-grow: 1;
     font-size: 1.1rem;
     display: inline-flex;
     align-items: center;
-    height: 2rem;
-    font-weight: 600;
+    height: 100%;
+    font-weight: 400;
     vertical-align: middle;
     padding-left: 1rem;
   }
@@ -27,6 +27,9 @@
   button {
     border-radius: 9999px;
     margin-left: 0.25rem;
+    height: 1.3rem;
+    width: 1.3rem;
+
     &:hover,
     &:active,
     &:focus {
