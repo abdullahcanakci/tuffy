@@ -35,7 +35,7 @@ handler.use(session).post(async (req, res) => {
     user = {
       isLoggedIn: true,
       email: user.email,
-      id: user._id.toString(),
+      id: user.insertedId,
     };
     req.session.set("user", user);
     await req.session.save();
