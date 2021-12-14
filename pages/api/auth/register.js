@@ -41,6 +41,7 @@ handler.use(session).post(async (req, res) => {
     await req.session.save();
     res.json(user);
   } catch (error) {
+    console.log(error);
     const { response: fetchResponse } = error;
     res.status(fetchResponse?.status || 500).json(error.data);
   }
