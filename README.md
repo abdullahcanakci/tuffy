@@ -1,7 +1,8 @@
 A basic note taking application.
 ## Getting Started
 
-First, run the development server:
+First, set up a MongoDB server, 
+then run the development server:
 
 ```bash
 npm run dev
